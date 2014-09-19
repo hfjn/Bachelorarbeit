@@ -2,7 +2,8 @@ package com.company;
 
 import org.opencv.core.*;
 import org.opencv.highgui.Highgui;
-import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.features2d.*;
+import org.opencv.imgproc.Imgproc;
 
 public class Main {
 
@@ -19,13 +20,23 @@ public class Main {
 
 class Demo{
     public void run(){
-        CascadeClassifier faceDetector = new CascadeClassifier(getClass().getResource("/resources/lbpcascade_frontalface.xml").getPath());
-
         Mat image = Highgui.imread(getClass().getResource("/resources/cocacola.jpg").getPath());
 
-        MatOfRect faceDetections = new MatOfRect();
-        faceDetector.detectMultiScale(image, faceDetections);
-        System.out.println(String.format("Detected %s faces", faceDetections.toArray().length));
+        // Convert RGB to Grayscale because SURF is only able to work that way
+        Imgproc.cvtColor(image, image, Imgproc.COLOR_RGB2GRAY);
+
+        // Create Surf Extractor
+        DescriptorExtractor surf = DescriptorExtractor.create(2);
+
+        MatOfKeyPoint keypoints = new MatOfKeyPoint();
+
+        Mat descriptors = new Mat();
+
+        surf.compute(image, keypoints, descriptors);
+
+        for(int i = 0; i < descriptors.depth(); i++){
+            System.out.println(descriptors.get(i, 0).toString());
+        }
 
     }
 }
