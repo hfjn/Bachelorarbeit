@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="opencv-300" level="application" />
+    <orderEntry type="library" name="opencv-249" level="application" />
   </component>
 </module>
 

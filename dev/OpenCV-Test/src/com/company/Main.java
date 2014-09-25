@@ -1,9 +1,6 @@
 package com.company;
 
-import org.opencv.core.*;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.features2d.*;
-import org.opencv.imgproc.Imgproc;
+import org.opencv.*;
 
 import java.util.*;
 
