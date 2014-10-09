@@ -10,12 +10,20 @@ import org.opencv.calib3d.*;
 import java.util.*;
 
 
+/**
+ *
+ */
 public class Main {
 
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Demo demo = new Demo();
         demo.run();
@@ -113,6 +121,12 @@ class Demo {
 
     }
 
+
+    /**
+     *
+     * @param goodmatches
+     * @return
+     */
     public Mat createHomography(MatOfDMatch goodmatches){
         List<Point> srcPoints = new ArrayList<Point>();
         List<Point> dstPoints = new ArrayList<Point>();
@@ -149,8 +163,8 @@ class Demo {
 
         imageKeypoints.add(new MatOfKeyPoint());
         // images
-        Mat logo = Highgui.imread(getClass().getResource("/resources/dhl-logo.jpg").getPath());
-        Mat image = Highgui.imread(getClass().getResource("/resources/dhl-car.jpg").getPath());
+        Mat logo = Highgui.imread(getClass().getResource("/resources/oertliche-logo.png").getPath());
+        Mat image = Highgui.imread(getClass().getResource("/resources/oertliche.jpg").getPath());
 
         // Convert RGB to Grayscale because SURF is only able to work that way
         logo = convertToGrayScale(logo);
