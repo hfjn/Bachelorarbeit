@@ -7,7 +7,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
     <orderEntry type="library" exported="" name="opencv-249" level="application" />
+=======
+    <orderEntry type="library" name="opencv-249" level="application" />
+>>>>>>> 8d6868511b731a6e75303ee5823889a7e5efb2e3
   </component>
 </module>
 
