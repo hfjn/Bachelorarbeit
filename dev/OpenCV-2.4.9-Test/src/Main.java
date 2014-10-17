@@ -163,8 +163,8 @@ class Demo {
 
         imageKeypoints.add(new MatOfKeyPoint());
         // images
-        Mat logo = Highgui.imread(getClass().getResource("/resources/oertliche-logo.png").getPath());
-        Mat image = Highgui.imread(getClass().getResource("/resources/oertliche.jpg").getPath());
+        Mat logo = Highgui.imread(getClass().getResource("/resources/logitech_logo.jpg").getPath());
+        Mat image = Highgui.imread(getClass().getResource("/resources/logitech.jpg").getPath());
 
         // Convert RGB to Grayscale because SURF is only able to work that way
         logo = convertToGrayScale(logo);
