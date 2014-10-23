@@ -1,0 +1,5 @@
+CURRENT_THEME_ID=org.eclipse.ui.r30
+TerminalPrefInvertColors=true
+eclipse.preferences.version=1
+overriddenByCSS=,TerminalPrefInvertColors,
+showIntro=false
