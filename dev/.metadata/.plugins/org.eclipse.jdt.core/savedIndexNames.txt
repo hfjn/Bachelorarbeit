@@ -1,0 +1,2 @@
+INDEX VERSION 1.127+/Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/.metadata/.plugins/org.eclipse.jdt.core
+71025173.index
