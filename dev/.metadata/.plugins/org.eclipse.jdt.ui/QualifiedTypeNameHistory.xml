@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="org.opencv.highgui.Highgui"/>
+<fullyQualifiedTypeName name="org.opencv.imgproc.Imgproc"/>
+<fullyQualifiedTypeName name="com.google.android.glass.touchpad.Gesture"/>
+<fullyQualifiedTypeName name="android.provider.MediaStore"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="android.hardware.Camera.Parameters"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="android.os.FileObserver"/>
+<fullyQualifiedTypeName name="com.google.android.glass.content.Intents"/>
+<fullyQualifiedTypeName name="com.google.android.glass.app.Card"/>
+<fullyQualifiedTypeName name="com.google.android.glass.app.Card.ImageLayout"/>
+<fullyQualifiedTypeName name="com.google.android.glass.widget.CardBuilder"/>
+<fullyQualifiedTypeName name="com.google.android.glass.widget.CardBuilder.Layout"/>
+<fullyQualifiedTypeName name="com.openquartz.facedetect.R.drawable"/>
+<fullyQualifiedTypeName name="android.graphics.BitmapFactory"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
+<fullyQualifiedTypeName name="android.view.View"/>
+</qualifiedTypeNameHistroy>
