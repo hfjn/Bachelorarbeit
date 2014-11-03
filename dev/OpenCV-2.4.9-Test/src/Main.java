@@ -1,13 +1,15 @@
-
-
-
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
 import org.opencv.features2d.*;
+import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.highgui.*;
-import org.opencv.calib3d.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 
 /**
@@ -63,6 +65,56 @@ class Demo {
         return image;
     }
 
+    public static String matToJson(Mat mat){
+        JsonObject obj = new JsonObject();
+
+        if(mat.isContinuous()){
+            int cols = mat.cols();
+            int rows = mat.rows();
+            int elemSize = (int) mat.elemSize();
+
+            byte[] data = new byte[cols * rows * elemSize];
+
+            mat.get(0, 0, data);
+
+            obj.addProperty("rows", mat.rows());
+            obj.addProperty("cols", mat.cols());
+            obj.addProperty("type", mat.type());
+
+            // We cannot set binary data to a json object, so:
+            // Encoding data byte array to Base64.
+            Base64.Encoder encoder = Base64.getEncoder();
+            String dataString = new String(encoder.encode(data));
+
+            obj.addProperty("data", dataString);
+
+            Gson gson = new Gson();
+            String json = gson.toJson(obj);
+
+            return json;
+        } else {
+            System.out.println("Mat not continuous.");
+        }
+        return "{}";
+    }
+
+    public static Mat matFromJson(String json){
+        JsonParser parser = new JsonParser();
+        JsonObject JsonObject = parser.parse(json).getAsJsonObject();
+
+        int rows = JsonObject.get("rows").getAsInt();
+        int cols = JsonObject.get("cols").getAsInt();
+        int type = JsonObject.get("type").getAsInt();
+
+        String dataString = JsonObject.get("data").getAsString();
+        Base64.Decoder decoder = Base64.getDecoder();
+        byte[] data = decoder.decode(dataString.getBytes());
+
+        Mat mat = new Mat(rows, cols, type);
+        mat.put(0, 0, data);
+
+        return mat;
+    }
 
     /**
      * @param logo
@@ -73,86 +125,47 @@ class Demo {
 
         // Compute Descriptors
         surfDescriptorExtractor.compute(logo, logoKeypoints.get(0), logoDescriptors);
+        System.out.println(logoDescriptors.type());
+//
+       // String json = matToJson(logoDescriptors);
+//
+        //logoDescriptors = matFromJson(json);
     }
 
+/*
+         * @param matches
+         * @return
+         */
+        public MatOfDMatch getGoodMatches(ArrayList<MatOfDMatch> matches) {
+            // double max_dist = 0;
 
-    /**
-     * @param matches
-     * @return
-     */
-    public MatOfDMatch getGoodMatches(ArrayList<MatOfDMatch> matches) {
-        // double max_dist = 0;
+            // double min_dist = 1000;
 
-        // double min_dist = 1000;
-
-        List<DMatch> good_matches = new ArrayList<DMatch>();
-        for (int j = 0; j < matches.size(); j++) {
-            List<DMatch> matchList = matches.get(j).toList();
+            List<DMatch> good_matches = new ArrayList<DMatch>();
+            for (int j = 0; j < matches.size(); j++) {
+                List<DMatch> matchList = matches.get(j).toList();
+                System.out.println(matchList.get(0).distance + " + " + matchList.get(1).distance);
+                if (matchList.get(0).distance < 0.59 * matchList.get(1).distance && ((int) matches.get(j).size().) >= 2) {
+                    good_matches.add(matchList.get(0));
+                }
 
 
-            // filter for best match
-        /*for (int i = 0; i < matchList.size(); i++) {
-
-            double dist = matchList.get(i).distance;
-            if (dist < min_dist) min_dist = dist;
-            if (dist > max_dist) max_dist = dist;
-        }
-
-        System.out.println(min_dist);
-        System.out.println(max_dist);*/
-
-            // filter matches for usable ones
-
-            if (matchList.get(0).distance < 0.7 * matchList.get(1).distance) {
-                good_matches.add(matchList.get(0));
 
             }
+            MatOfDMatch goodmatches = new MatOfDMatch();
+            goodmatches.fromList(good_matches);
+            if (good_matches.size() != 0x0) {
+                if(!((matches.size() / good_matches.size()) >= 0.2)){
+                    System.out.println("No object found!");
+                    return new MatOfDMatch();
+                }
+            }
+            System.out.println(goodmatches.size());
+            return goodmatches;
 
 
         }
-        MatOfDMatch goodmatches = new MatOfDMatch();
-        goodmatches.fromList(good_matches);
-        if (good_matches.size() < 10) {
-            System.out.println("No object found!");
-            return new MatOfDMatch();
-        }
-        return goodmatches;
 
-
-    }
-
-
-    /**
-     *
-     * @param goodmatches
-     * @return
-     */
-    public Mat createHomography(MatOfDMatch goodmatches){
-        List<Point> srcPoints = new ArrayList<Point>();
-        List<Point> dstPoints = new ArrayList<Point>();
-
-        List<KeyPoint> logoKeypointList = logoKeypoints.get(0).toList();
-        List<KeyPoint> imgKeypointList = imageKeypoints.get(0).toList();
-
-        List<DMatch> matches = goodmatches.toList();
-        for (int i = 0; i < matches.size(); i++){
-            srcPoints.add(logoKeypointList.get(matches.get(i).queryIdx).pt);
-            dstPoints.add(imgKeypointList.get(matches.get(i).trainIdx).pt);
-        }
-
-        MatOfPoint2f matSrcPoints = new MatOfPoint2f();
-        MatOfPoint2f matDstPoints = new MatOfPoint2f();
-
-        matSrcPoints.fromList(srcPoints);
-        matDstPoints.fromList(dstPoints);
-
-        Mat mask = new Mat();
-
-        Calib3d.findHomography(matSrcPoints, matDstPoints, Calib3d.RANSAC, 5.0, mask);
-
-        return mask;
-
-    }
 
     /**
      *
@@ -163,12 +176,9 @@ class Demo {
 
         imageKeypoints.add(new MatOfKeyPoint());
         // images
-        Mat logo = Highgui.imread(getClass().getResource("/resources/logitech_logo.jpg").getPath());
-        Mat image = Highgui.imread(getClass().getResource("/resources/logitech.jpg").getPath());
+        Mat logo = Highgui.imread(getClass().getResource("/resources/dhl-logo.jpg").getPath());
+        Mat image = Highgui.imread(getClass().getResource("/resources/dhl-car.jpg").getPath());
 
-        // Convert RGB to Grayscale because SURF is only able to work that way
-        logo = convertToGrayScale(logo);
-        image = convertToGrayScale(image);
 
         learnAboutLogo(logo);
 
@@ -192,9 +202,7 @@ class Demo {
 
         matches.add(1, getGoodMatches(matches));
 
-        Mat mask = createHomography(matches.get(1));
 
-        
 
         Mat outImg = new Mat();
         // write images
