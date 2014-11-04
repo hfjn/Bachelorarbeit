@@ -9,6 +9,7 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: uos.jhoffjann:opencvserver-common:1.0-SNAPSHOT" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:1.4" />
+          <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2.1" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:3.1.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.1.3.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
@@ -19,13 +20,14 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:3.1.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:3.1.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:3.1.3.RELEASE" />
-          <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2.1" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.5" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.5" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.1" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.6.1" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.6.1" />
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.16" />
+          <element id="library" level="project" name="Maven: nu.pattern:opencv:2.4.9-7" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.3" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="opencvserver-server/web/Web" />
