@@ -86,6 +86,8 @@ public class WelcomeController {
 
                 log.info("File was successfully uploaded!");
 
+                // TODO Start analyze thread for every picture in logos give back best one
+
                 return new AnalyzeResponse("Wohoo. I got a picture.", new Date());
             } else {
                 return new AnalyzeResponse("How about a picture?", new Date());
