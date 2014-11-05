@@ -9,12 +9,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import uos.jhoffjann.server.common.AnalyzeResponse;
+import uos.jhoffjann.server.common.Result;
 import uos.jhoffjann.server.logic.OCV;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * SpringMVC Controller that lives on the server side and handles incoming HTTP requests. It is basically a servlet but
@@ -26,6 +34,24 @@ import java.util.Date;
 public class WelcomeController {
 
     private static final Logger log = LoggerFactory.getLogger(WelcomeController.class);
+
+    // array of supported extensions (use a List if you prefer)
+    static final String[] EXTENSIONS = new String[]{
+            "gif", "png", "bmp", "jpg" // and other formats you need
+    };
+    // filter to identify images based on their extensions
+    static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
+
+        @Override
+        public boolean accept(final File dir, final String name) {
+            for (final String ext : EXTENSIONS) {
+                if (name.endsWith("." + ext)) {
+                    return (true);
+                }
+            }
+            return (false);
+        }
+    };
 
     /**
      * This method is exposed as a REST service. The @RequestMapping parameter tells Spring that when a request comes in
@@ -87,8 +113,36 @@ public class WelcomeController {
                 log.info("File was successfully uploaded!");
 
                 // TODO Start analyze thread for every picture in logos give back best one
+                ExecutorService pool = Executors.newFixedThreadPool(10);
 
-                return new AnalyzeResponse("Wohoo. I got a picture.", new Date());
+                Set<Future<Result>> set = new HashSet<Future<Result>>();
+
+                dir = new File(root + File.separator + "object");
+
+                if (dir.isDirectory()) { // make sure it's a directory
+                    for (final File f : dir.listFiles(IMAGE_FILTER)) {
+                        log.info("starting Analyzing");
+                        Callable<Result> callable = new OCV(f, serverFile);
+                        Future<Result> future = pool.submit(callable);
+                        set.add(future);
+                    }
+                }
+                Result best = null;
+                for (Future<Result> future : set){
+                    if(best == null)
+                       best = future.get();
+                    else if(best.getMatches() < future.get().getMatches()){
+                        best = future.get();
+                    }
+                }
+
+                if(best != null && best.getMatches() > 4){
+                    return new AnalyzeResponse("You're a looking at a " + best.getName(), new Date());
+                }
+                else{
+                    return new AnalyzeResponse("Nothing found here", new Date());
+                }
+
             } else {
                 return new AnalyzeResponse("How about a picture?", new Date());
             }
@@ -117,30 +171,17 @@ public class WelcomeController {
                     dir.mkdirs();
 
                 // Create file on server
-                File serverFile = new File(dir.getAbsolutePath() + File.separator + name + new Date());
+                File serverFile = new File(dir.getAbsolutePath() + File.separator + name);
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-
-                OCV ocv = new OCV();
-
-                // get Descriptions from OpenCV
-                String json = ocv.learnAboutLogo(serverFile);
-
-                // Save imageDescriptors to HDD for later use
-                dir = new File(root + File.separator + "object_descriptors");
-
-                if (!dir.exists())
-                    dir.mkdirs();
-
-                File jsonFile = new File(dir.getAbsolutePath() + File.separator + name + new Date());
-                stream = new BufferedOutputStream((new FileOutputStream(serverFile)));
-                stream.write(json);
+                ;
                 stream.close();
 
                 log.info("File was successfully uploaded!");
 
                 return new AnalyzeResponse("Wohoo. I got a picture.", new Date());
+
             } else {
                 return new AnalyzeResponse("How about a picture?", new Date());
             }

@@ -1,0 +1,6 @@
+uos/jhoffjann/server/common/Result.class
+uos/jhoffjann/server/common/WelcomeMessage.class
+uos/jhoffjann/server/common/AnalyzeResponse.class
+uos/jhoffjann/server/controller/WelcomeController.class
+uos/jhoffjann/server/logic/OCV.class
+uos/jhoffjann/server/controller/WelcomeController$1.class

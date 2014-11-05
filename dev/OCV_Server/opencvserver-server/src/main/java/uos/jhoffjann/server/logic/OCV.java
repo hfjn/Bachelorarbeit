@@ -1,15 +1,8 @@
 package uos.jhoffjann.server.logic;
 
 
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfDMatch;
-import org.opencv.core.MatOfKeyPoint;
-import org.opencv.features2d.DMatch;
-import org.opencv.features2d.DescriptorExtractor;
-import org.opencv.features2d.DescriptorMatcher;
-import org.opencv.features2d.FeatureDetector;
-import org.opencv.highgui.Highgui;
-import org.opencv.imgproc.Imgproc;
+import org.bytedeco.javacpp.opencv_core;
+import org.bytedeco.javacpp.opencv_features2d;
 import uos.jhoffjann.server.common.Result;
 
 import java.io.File;
@@ -17,32 +10,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+
 /**
  * Created by jhoffjann on 04.11.14.
  */
 public class OCV implements Callable<Result> {
 
+
     // Create Feature Detector
-    FeatureDetector surfFeatureDetector = FeatureDetector.create(FeatureDetector.SURF);
+    opencv_features2d.FeatureDetector surfFeatureDetector = opencv_features2d.FeatureDetector.create(opencv_features2d.FeatureDetector.SURF);
 
     // Create Surf Extractor
-    DescriptorExtractor surfDescriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.SURF);
+    opencv_features2d.DescriptorExtractor surfDescriptorExtractor = opencv_features2d.DescriptorExtractor.create(opencv_features2d.DescriptorExtractor.SURF);
 
     // Create Matcher
-    DescriptorMatcher matcher = DescriptorMatcher.create(DescriptorMatcher.FLANNBASED);
+    opencv_features2d.DescriptorMatcher matcher = opencv_features2d.DescriptorMatcher.create(opencv_features2d.DescriptorMatcher.FLANNBASED);
 
-    Mat image;
-    Mat logo;
+    opencv_core.Mat image;
+    opencv_core.Mat logo;
 
     String name;
 
     // Keypointsafes
-    ArrayList<MatOfKeyPoint> logoKeypoints = new ArrayList<MatOfKeyPoint>();
-    ArrayList<MatOfKeyPoint> imageKeypoints = new ArrayList<MatOfKeyPoint>();
+    opencv_features2d.KeyPoint logoKeypoints = new ArrayList<MatOfKeyPoint>();
+    opencv_features2d.KeyPoint imageKeypoints = new ArrayList<MatOfKeyPoint>();
 
     // Descriptorssafes
-    Mat logoDescriptors = new Mat();
-    Mat objectDescriptors = new Mat();
+    opencv_core.Mat logoDescriptors = new opencv_core.Mat();
+    opencv_core.Mat objectDescriptors = new opencv_core.Mat();
 
 
     public OCV(File fLogo, File fImage){
@@ -55,7 +50,7 @@ public class OCV implements Callable<Result> {
      * @param image
      * @return
      */
-    public Mat convertToGrayScale(Mat image) {
+    public opencv_core.Mat convertToGrayScale(opencv_core.Mat image) {
         Imgproc.cvtColor(image, image, Imgproc.COLOR_BGR2GRAY);
         return image;
     }
@@ -64,7 +59,7 @@ public class OCV implements Callable<Result> {
     /**
      * @param logo
      */
-    public void learnAboutLogo(Mat logo) {
+    public void learnAboutLogo(opencv_core.Mat logo) {
         // Detect Keypoints
         surfFeatureDetector.detect(logo, logoKeypoints.get(0));
 
@@ -78,9 +73,9 @@ public class OCV implements Callable<Result> {
      * @return
      */
     public MatOfDMatch getGoodMatches(ArrayList<MatOfDMatch> matches) {
-        List<DMatch> good_matches = new ArrayList<DMatch>();
+        List<opencv_features2d.DMatch> good_matches = new ArrayList<opencv_features2d.DMatch>();
         for (int j = 0; j < matches.size(); j++) {
-            List<DMatch> matchList = matches.get(j).toList();
+            List<opencv_features2d.DMatch> matchList = matches.get(j).toList();
             System.out.println(matchList.get(0).distance + " + " + matchList.get(1).distance);
             if (matchList.get(0).distance < 0.67 * matchList.get(1).distance) {
                 good_matches.add(matchList.get(0));
@@ -123,6 +118,8 @@ public class OCV implements Callable<Result> {
         // filter for "good matches"
 
         matches.add(1, getGoodMatches(matches));
+
+        System.out.println(matches.size());
 
         return new Result(name, matches.size());
     }
