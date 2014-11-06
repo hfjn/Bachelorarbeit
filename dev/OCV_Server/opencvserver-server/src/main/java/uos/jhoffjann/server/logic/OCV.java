@@ -1,13 +1,10 @@
 package uos.jhoffjann.server.logic;
 
 
-import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacpp.opencv_features2d;
+import org.bytedeco.javacpp.*;
 import uos.jhoffjann.server.common.Result;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Callable;
 
 
@@ -16,33 +13,39 @@ import java.util.concurrent.Callable;
  */
 public class OCV implements Callable<Result> {
 
-
     // Create Feature Detector
-    opencv_features2d.FeatureDetector surfFeatureDetector = opencv_features2d.FeatureDetector.create(opencv_features2d.FeatureDetector.SURF);
+    double hessianThreshold = 2500d;
+    int nOctaves = 4;
+    int nOctaveLayers = 2;
+    boolean extended = true;
+    boolean upright = false;
+    opencv_nonfree.SURF surfFeatureDetector = new opencv_nonfree.SURF(hessianThreshold, nOctaves, nOctaveLayers,
+            extended, upright);
 
     // Create Surf Extractor
-    opencv_features2d.DescriptorExtractor surfDescriptorExtractor = opencv_features2d.DescriptorExtractor.create(opencv_features2d.DescriptorExtractor.SURF);
+    opencv_features2d.DescriptorExtractor surfDescriptorExtractor = opencv_features2d.DescriptorExtractor.create("SURF");
 
     // Create Matcher
-    opencv_features2d.DescriptorMatcher matcher = opencv_features2d.DescriptorMatcher.create(opencv_features2d.DescriptorMatcher.FLANNBASED);
+    opencv_features2d.DescriptorMatcher matcher = new opencv_features2d.FlannBasedMatcher();
 
     opencv_core.Mat image;
     opencv_core.Mat logo;
 
+    // images
+    opencv_core.Mat images[] = {new opencv_core.Mat(), new opencv_core.Mat()};
+
     String name;
 
     // Keypointsafes
-    opencv_features2d.KeyPoint logoKeypoints = new ArrayList<MatOfKeyPoint>();
-    opencv_features2d.KeyPoint imageKeypoints = new ArrayList<MatOfKeyPoint>();
+    opencv_features2d.KeyPoint keypoints[] = new opencv_features2d.KeyPoint[2];
 
     // Descriptorssafes
-    opencv_core.Mat logoDescriptors = new opencv_core.Mat();
-    opencv_core.Mat objectDescriptors = new opencv_core.Mat();
+    opencv_core.Mat descriptors[] = {new opencv_core.Mat(), new opencv_core.Mat()};
 
 
-    public OCV(File fLogo, File fImage){
-        logo = Highgui.imread(fLogo.getAbsolutePath());
-        image = Highgui.imread(fImage.getAbsolutePath());
+    public OCV(File fLogo, File fImage) {
+        images[0] = opencv_highgui.imread(fLogo.getAbsolutePath());
+        images[1] = opencv_highgui.imread(fImage.getAbsolutePath());
         name = fLogo.getName();
     }
 
@@ -51,39 +54,41 @@ public class OCV implements Callable<Result> {
      * @return
      */
     public opencv_core.Mat convertToGrayScale(opencv_core.Mat image) {
-        Imgproc.cvtColor(image, image, Imgproc.COLOR_BGR2GRAY);
+        opencv_imgproc.cvtColor(image, image, opencv_imgproc.COLOR_BGR2GRAY);
         return image;
     }
 
 
     /**
-     * @param logo
+     * @param images
      */
-    public void learnAboutLogo(opencv_core.Mat logo) {
-        // Detect Keypoints
-        surfFeatureDetector.detect(logo, logoKeypoints.get(0));
+    public void learnAboutImages(opencv_core.Mat[] images) {
+        for (int i = 0; i < images.length; i++) {
+            // Detect Keypoints
+            surfFeatureDetector.detect(images[i], keypoints[i]);
 
-        // Compute Descriptors
-        surfDescriptorExtractor.compute(logo, logoKeypoints.get(0), logoDescriptors);
-        System.out.println(logoDescriptors.type());
+            // Compute Descriptors
+            surfDescriptorExtractor.compute(images[i], keypoints[i], descriptors[i]);
+        }
+
     }
 
     /**
      * @param matches
      * @return
      */
-    public MatOfDMatch getGoodMatches(ArrayList<MatOfDMatch> matches) {
-        List<opencv_features2d.DMatch> good_matches = new ArrayList<opencv_features2d.DMatch>();
+    public opencv_features2d.DMatchVectorVector getGoodMatches(opencv_features2d.DMatchVectorVector matches) {
+        opencv_features2d.DMatchVectorVector goodMatches = new opencv_features2d.DMatchVectorVector();
+        int i = 0;
         for (int j = 0; j < matches.size(); j++) {
-            List<opencv_features2d.DMatch> matchList = matches.get(j).toList();
-            System.out.println(matchList.get(0).distance + " + " + matchList.get(1).distance);
-            if (matchList.get(0).distance < 0.67 * matchList.get(1).distance) {
-                good_matches.add(matchList.get(0));
+            System.out.println(matches.get(j, 0).distance() + " + " + matches.get(j , 1).distance());
+            if (matches.get(j, 0).distance() < 0.67 * matches.get(j, 1).distance()) {
+                i++;
+                goodMatches.put(i, 0, matches.get(j, 0));
+                goodMatches.put(i, 1, matches.get(j, 1));
             }
         }
-        MatOfDMatch goodmatches = new MatOfDMatch();
-        goodmatches.fromList(good_matches);
-        return goodmatches;
+        return goodMatches;
     }
 
 
@@ -91,36 +96,21 @@ public class OCV implements Callable<Result> {
      *
      */
     public Result call() {
-
-        logoKeypoints.add(new MatOfKeyPoint());
-
-        imageKeypoints.add(new MatOfKeyPoint());
-        // images
-
-
-        learnAboutLogo(logo);
-
-        // Find Keypoints of image
-
-        surfFeatureDetector.detect(image, imageKeypoints.get(0));
-
-        // Compute Descriptors of image
-
-        surfDescriptorExtractor.compute(image, imageKeypoints.get(0), objectDescriptors);
+        learnAboutImages(images);
 
         // Matchsafe
-        ArrayList<MatOfDMatch> matches = new ArrayList<MatOfDMatch>();
-        matches.add(new MatOfDMatch());
+        opencv_features2d.DMatchVectorVector matches = new opencv_features2d.DMatchVectorVector();
 
         // Match it
-        matcher.knnMatch(logoDescriptors, objectDescriptors, matches, 2);
+
+        matcher.knnMatch(descriptors[0], descriptors[1], matches, 2);
 
         // filter for "good matches"
 
-        matches.add(1, getGoodMatches(matches));
+        matches = getGoodMatches(matches);
 
         System.out.println(matches.size());
 
-        return new Result(name, matches.size());
+        return new Result(name, (int) matches.size());
     }
 }
