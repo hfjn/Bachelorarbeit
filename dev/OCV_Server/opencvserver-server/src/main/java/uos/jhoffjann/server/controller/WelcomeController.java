@@ -105,7 +105,7 @@ public class WelcomeController {
                     dir.mkdirs();
 
                 // Create file on server
-                File serverFile = new File(dir.getAbsolutePath() + File.separator + name + new Date());
+                File serverFile = new File(dir.getAbsolutePath() + File.separator + name + new Date() + ".jpg");
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
@@ -119,6 +119,7 @@ public class WelcomeController {
 
                 dir = new File(root + File.separator + "object");
 
+                // start a threat for each image
                 if (dir.isDirectory()) { // make sure it's a directory
                     for (final File f : dir.listFiles(IMAGE_FILTER)) {
                         log.info("starting Analyzing");
@@ -127,6 +128,7 @@ public class WelcomeController {
                         set.add(future);
                     }
                 }
+                // check Results
                 Result best = null;
                 for (Future<Result> future : set){
                     if(best == null)
@@ -137,6 +139,7 @@ public class WelcomeController {
                 }
 
                 if(best != null && best.getMatches() > 4){
+                    log.info(best.getMatches() + "");
                     return new AnalyzeResponse("You're a looking at a " + best.getName(), new Date());
                 }
                 else{
@@ -171,7 +174,7 @@ public class WelcomeController {
                     dir.mkdirs();
 
                 // Create file on server
-                File serverFile = new File(dir.getAbsolutePath() + File.separator + name);
+                File serverFile = new File(dir.getAbsolutePath() + File.separator + name + ".jpg");
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
