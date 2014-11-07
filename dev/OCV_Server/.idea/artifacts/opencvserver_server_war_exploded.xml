@@ -28,19 +28,13 @@
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.16" />
           <element id="library" level="project" name="Maven: org.bytedeco:javacpp:0.9" />
           <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:opencv:2.4.9-0.9" />
-          <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:2.3-0.9" />
+          <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:2.4.2-0.9.1-SNAPSHOT" />
+          <element id="library" level="project" name="Maven: org.bytedeco:javacv:0.9" />
           <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:flycapture:2.6.3.4-0.9" />
           <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:libdc1394:2.2.2-0.9" />
           <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:libfreenect:0.5-0.9" />
           <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:videoinput:0.200-0.9" />
           <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:artoolkitplus:2.3.0-0.9" />
-          <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:flandmark:1.07-0.9" />
-          <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:fftw:3.3.4-0.9" />
-          <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:gsl:1.16-0.9" />
-          <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:llvm:3.4.2-0.9" />
-          <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:leptonica:1.71-0.9" />
-          <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:tesseract:3.03-rc1-0.9" />
-          <element id="library" level="project" name="Maven: org.bytedeco:javacv:0.9" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.3" />
         </element>
       </element>

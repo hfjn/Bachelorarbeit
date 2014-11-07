@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.bytedeco:javacpp:0.9.1-SNAPHSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp/0.9.1-SNAPHSHOT/javacpp-0.9.1-SNAPHSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp/0.9.1-SNAPHSHOT/javacpp-0.9.1-SNAPHSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp/0.9.1-SNAPHSHOT/javacpp-0.9.1-SNAPHSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -91,7 +91,6 @@ public class OCV implements Callable<Result> {
         return goodMatches;
     }
 
-
     /**
      *
      */

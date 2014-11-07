@@ -175,7 +175,6 @@ public class WelcomeController {
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                ;
                 stream.close();
 
                 log.info("File was successfully uploaded!");
