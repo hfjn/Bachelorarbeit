@@ -47,6 +47,18 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 
 
+<<<<<<< HEAD
+=======
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+
+>>>>>>> dc8387a1ee2cecec35c79969edf68450ed9dc583
 ### Java ###
 *.class
 
@@ -62,6 +74,40 @@ com_crashlytics_export_strings.xml
 hs_err_pid*
 
 
+<<<<<<< HEAD
+=======
+### C++ ###
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+>>>>>>> dc8387a1ee2cecec35c79969edf68450ed9dc583
 ### OSX ###
 .DS_Store
 .AppleDouble
@@ -86,6 +132,7 @@ Temporary Items
 .apdisk
 
 
+<<<<<<< HEAD
 ### Maven ###
 target/
 pom.xml.tag
@@ -95,6 +142,8 @@ pom.xml.next
 release.properties
 
 
+=======
+>>>>>>> dc8387a1ee2cecec35c79969edf68450ed9dc583
 ### Windows ###
 # Windows image file caches
 Thumbs.db

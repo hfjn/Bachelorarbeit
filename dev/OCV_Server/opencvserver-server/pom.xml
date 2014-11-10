@@ -141,21 +141,25 @@
 
         <!--OpenCV-->
         <dependency>
-            <groupId>org.bytedeco</groupId>
+            <groupId>uos.jhoffjann</groupId>
             <artifactId>javacpp</artifactId>
             <version>0.9</version>
         </dependency>
 
         <dependency>
-            <groupId>org.bytedeco.javacpp-presets</groupId>
+            <groupId>uos.jhoffjann</groupId>
             <artifactId>opencv</artifactId>
-            <version>2.4.9-0.9</version>
+            <version>2.4.9</version>
         </dependency>
 
         <dependency>
-            <groupId>org.bytedeco.javacpp-presets</groupId>
+            <groupId>uos.jhoffjann</groupId>
             <artifactId>ffmpeg</artifactId>
+<<<<<<< HEAD
             <version>2.3-0.9</version>
+=======
+            <version>2.4.2</version>
+>>>>>>> dc8387a1ee2cecec35c79969edf68450ed9dc583
         </dependency>
 
         <dependency>
