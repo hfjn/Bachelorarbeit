@@ -70,12 +70,6 @@
 
     <dependencies>
 
-        <!-- Common module -->
-        <dependency>
-            <groupId>uos.jhoffjann</groupId>
-            <artifactId>opencvserver-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 
         <!-- File Upload Handling -->
         <dependency>
@@ -155,11 +149,7 @@
         <dependency>
             <groupId>uos.jhoffjann</groupId>
             <artifactId>ffmpeg</artifactId>
-<<<<<<< HEAD
-            <version>2.3-0.9</version>
-=======
             <version>2.4.2</version>
->>>>>>> dc8387a1ee2cecec35c79969edf68450ed9dc583
         </dependency>
 
         <dependency>
