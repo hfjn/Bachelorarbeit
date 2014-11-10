@@ -99,13 +99,13 @@ public class WelcomeController {
 
                 // Create a temporary directory to store the image
                 String root = System.getProperty("user.dir");
-                File dir = new File(root + File.separator + "tmpFiles");
+                File tmpDir = new File(root + File.separator + "tmpFiles");
 
-                if (!dir.exists())
-                    dir.mkdirs();
+                if (!tmpDir.exists())
+                    tmpDir.mkdirs();
 
                 // Create file on server
-                File serverFile = new File(dir.getAbsolutePath() + File.separator + name + new Date() + ".jpg");
+                File serverFile = new File(tmpDir.getAbsolutePath() + File.separator + name + new Date() + ".jpg");
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
@@ -117,7 +117,7 @@ public class WelcomeController {
 
                 Set<Future<Result>> set = new HashSet<Future<Result>>();
 
-                dir = new File(root + File.separator + "object");
+                File dir = new File(root + File.separator + "object");
 
                 // start a threat for each image
                 if (dir.isDirectory()) { // make sure it's a directory
@@ -137,7 +137,6 @@ public class WelcomeController {
                         best = future.get();
                     }
                 }
-
                 if(best != null && best.getMatches() > 4){
                     log.info(best.getMatches() + "");
                     return new AnalyzeResponse("You're a looking at a " + best.getName(), new Date());
@@ -145,6 +144,7 @@ public class WelcomeController {
                 else{
                     return new AnalyzeResponse("Nothing found here", new Date());
                 }
+
 
             } else {
                 return new AnalyzeResponse("How about a picture?", new Date());
