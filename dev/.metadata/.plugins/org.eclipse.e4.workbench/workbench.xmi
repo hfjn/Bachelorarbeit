@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_E1lDkGNTEeSXTpgmbw31ig" elementId="org.eclipse.e4.legacy.ide.application" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_E1lDkWNTEeSXTpgmbw31ig" bindingContexts="_E1m6dGNTEeSXTpgmbw31ig">
-  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;CameraSurfaceView.java&quot; tooltip=&quot;CSGlass/src/com/openquartz/facedetect/CameraSurfaceView.java&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/src/com/openquartz/facedetect/CameraSurfaceView.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;FdActivity.java&quot; tooltip=&quot;CSGlass/src/com/openquartz/facedetect/FdActivity.java&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/src/com/openquartz/facedetect/FdActivity.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;com.android.ide.eclipse.editors.CommonXmlEditor&quot; name=&quot;imageview.xml&quot; tooltip=&quot;CSGlass/res/layout/imageview.xml&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/res/layout/imageview.xml&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;com.android.ide.eclipse.editors.CommonXmlEditor&quot; name=&quot;face_detect_surface_view.xml&quot; tooltip=&quot;CSGlass/res/layout/face_detect_surface_view.xml&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/res/layout/face_detect_surface_view.xml&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;MainActivity.java&quot; tooltip=&quot;main/java/com/openquartz/glasspreview/activities/MainActivity.java&quot;>&#xA;&lt;persistable path=&quot;/main/java/com/openquartz/glasspreview/activities/MainActivity.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ImageView.java&quot; tooltip=&quot;main/src/main/ImageView.java&quot;>&#xA;&lt;persistable path=&quot;/main/src/main/ImageView.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;CameraSurfaceView.java&quot; tooltip=&quot;main/java/com/openquartz/glasspreview/CameraSurfaceView.java&quot;>&#xA;&lt;persistable path=&quot;/main/java/com/openquartz/glasspreview/CameraSurfaceView.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;com.android.ide.eclipse.editors.manifest.ManifestEditor&quot; name=&quot;AndroidManifest.xml&quot; tooltip=&quot;main/AndroidManifest.xml&quot;>&#xA;&lt;persistable path=&quot;/main/AndroidManifest.xml&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;JView.java&quot; tooltip=&quot;CSGlass/src/com/openquartz/facedetect/JView.java&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/src/com/openquartz/facedetect/JView.java&quot;/>&#xA;&lt;/file>&#xA;&lt;/mruList>&#xA;&lt;/workbench>"/>
+  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;PostTask.java&quot; tooltip=&quot;CSGlass/src/com/openquartz/facedetect/PostTask.java&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/src/com/openquartz/facedetect/PostTask.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;FdActivity.java&quot; tooltip=&quot;CSGlass/src/com/openquartz/facedetect/FdActivity.java&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/src/com/openquartz/facedetect/FdActivity.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;CameraSurfaceView.java&quot; tooltip=&quot;CSGlass/src/com/openquartz/facedetect/CameraSurfaceView.java&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/src/com/openquartz/facedetect/CameraSurfaceView.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;com.android.ide.eclipse.editors.CommonXmlEditor&quot; name=&quot;imageview.xml&quot; tooltip=&quot;CSGlass/res/layout/imageview.xml&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/res/layout/imageview.xml&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;com.android.ide.eclipse.editors.CommonXmlEditor&quot; name=&quot;face_detect_surface_view.xml&quot; tooltip=&quot;CSGlass/res/layout/face_detect_surface_view.xml&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/res/layout/face_detect_surface_view.xml&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;MainActivity.java&quot; tooltip=&quot;main/java/com/openquartz/glasspreview/activities/MainActivity.java&quot;>&#xA;&lt;persistable path=&quot;/main/java/com/openquartz/glasspreview/activities/MainActivity.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;ImageView.java&quot; tooltip=&quot;main/src/main/ImageView.java&quot;>&#xA;&lt;persistable path=&quot;/main/src/main/ImageView.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;CameraSurfaceView.java&quot; tooltip=&quot;main/java/com/openquartz/glasspreview/CameraSurfaceView.java&quot;>&#xA;&lt;persistable path=&quot;/main/java/com/openquartz/glasspreview/CameraSurfaceView.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;com.android.ide.eclipse.editors.manifest.ManifestEditor&quot; name=&quot;AndroidManifest.xml&quot; tooltip=&quot;main/AndroidManifest.xml&quot;>&#xA;&lt;persistable path=&quot;/main/AndroidManifest.xml&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;JView.java&quot; tooltip=&quot;CSGlass/src/com/openquartz/facedetect/JView.java&quot;>&#xA;&lt;persistable path=&quot;/CSGlass/src/com/openquartz/facedetect/JView.java&quot;/>&#xA;&lt;/file>&#xA;&lt;/mruList>&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
   <children xsi:type="basic:TrimmedWindow" xmi:id="_E1lDkWNTEeSXTpgmbw31ig" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_E1lDkmNTEeSXTpgmbw31ig" label="%trimmedwindow.label.eclipseSDK" x="-523" y="-1002" width="1920" height="1080">
@@ -156,14 +156,13 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_E1lrbmNTEeSXTpgmbw31ig" elementId="org.eclipse.ui.editorss" selectedElement="_E1lrb2NTEeSXTpgmbw31ig">
-      <children xsi:type="basic:PartStack" xmi:id="_E1lrb2NTEeSXTpgmbw31ig" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_E1lrwWNTEeSXTpgmbw31ig">
+      <children xsi:type="basic:PartStack" xmi:id="_E1lrb2NTEeSXTpgmbw31ig" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_G-qqEGpxEeSOk8pfl6aCPg">
         <tags>newtablook</tags>
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
-        <tags>noFocus</tags>
         <tags>active</tags>
         <children xsi:type="basic:Part" xmi:id="_E1lrcGNTEeSXTpgmbw31ig" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="FdActivity.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.gif" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;FdActivity.java&quot; partName=&quot;FdActivity.java&quot; title=&quot;FdActivity.java&quot; tooltip=&quot;CSGlass/src/com/openquartz/facedetect/FdActivity.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/CSGlass/src/com/openquartz/facedetect/FdActivity.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;7103&quot; selectionTopPixel=&quot;3718&quot;/>&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;FdActivity.java&quot; partName=&quot;FdActivity.java&quot; title=&quot;FdActivity.java&quot; tooltip=&quot;CSGlass/src/com/openquartz/facedetect/FdActivity.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/CSGlass/src/com/openquartz/facedetect/FdActivity.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;7067&quot; selectionTopPixel=&quot;3558&quot;/>&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
@@ -189,8 +188,6 @@
           <tags>Editor</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
           <tags>removeOnHide</tags>
-          <tags>active</tags>
-          <tags>activeOnClose</tags>
           <menus xsi:type="menu:PopupMenu" xmi:id="_E1lrwmNTEeSXTpgmbw31ig" elementId="#CompilationUnitEditorContext">
             <tags>menuContribution:popup</tags>
             <tags>popup:#CompilationUnitEditorContext</tags>
@@ -219,6 +216,14 @@
           <tags>Editor</tags>
           <tags>com.android.ide.eclipse.editors.CommonXmlEditor</tags>
           <tags>removeOnHide</tags>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_G-qqEGpxEeSOk8pfl6aCPg" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="PostTask.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.gif" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;PostTask.java&quot; partName=&quot;PostTask.java&quot; title=&quot;PostTask.java&quot; tooltip=&quot;CSGlass/src/com/openquartz/facedetect/PostTask.java&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/CSGlass/src/com/openquartz/facedetect/PostTask.java&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;345&quot; selectionTopPixel=&quot;0&quot;/>&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
+          <tags>removeOnHide</tags>
+          <tags>active</tags>
+          <tags>activeOnClose</tags>
         </children>
       </children>
     </sharedElements>
@@ -409,7 +414,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_E1mSO2NTEeSXTpgmbw31ig" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_6tfbMGjiEeSHbdWWOmX5lg" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_E1ryCmNTEeSXTpgmbw31ig"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_bxhDYGpwEeSOk8pfl6aCPg" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_E1ryCmNTEeSXTpgmbw31ig"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_E1mSSWNTEeSXTpgmbw31ig" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -442,7 +447,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_E1mSlWNTEeSXTpgmbw31ig" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_6tpzQGjiEeSHbdWWOmX5lg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_E1rxvGNTEeSXTpgmbw31ig"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_bxywMmpwEeSOk8pfl6aCPg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_E1rxvGNTEeSXTpgmbw31ig"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_E1mSoGNTEeSXTpgmbw31ig" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -976,7 +981,7 @@
       <tags>platform:cocoa</tags>
       <parameters xmi:id="_E1m5t2NTEeSXTpgmbw31ig" elementId="org.eclipse.ui.views.showView.viewId" name="org.eclipse.ui.views.showView.viewId" value="org.eclipse.jdt.ui.PackageExplorer"/>
     </bindings>
-    <bindings xmi:id="_4306EWjiEeSHbdWWOmX5lg" keySequence="COMMAND+CTRL+F" command="_E1rywmNTEeSXTpgmbw31ig"/>
+    <bindings xmi:id="_aeUWIWpwEeSOk8pfl6aCPg" keySequence="COMMAND+CTRL+F" command="_E1rywmNTEeSXTpgmbw31ig"/>
   </bindingTables>
   <bindingTables xmi:id="_E1m5uWNTEeSXTpgmbw31ig" elementId="org.eclipse.jdt.ui.javaEditorScope" bindingContext="_E1m6e2NTEeSXTpgmbw31ig">
     <bindings xmi:id="_E1m5umNTEeSXTpgmbw31ig" keySequence="COMMAND+SHIFT+C" command="_E1rL-mNTEeSXTpgmbw31ig"/>
@@ -1169,7 +1174,7 @@
     <bindings xmi:id="_E1m6NmNTEeSXTpgmbw31ig" keySequence="F1" command="_E1rKQmNTEeSXTpgmbw31ig"/>
   </bindingTables>
   <bindingTables xmi:id="_E1m6N2NTEeSXTpgmbw31ig" contributorURI="platform:/fragment/org.eclipse.e4.ui.workbench.renderers.swt.cocoa" bindingContext="_E1m6omNTEeSXTpgmbw31ig">
-    <bindings xmi:id="_432IMGjiEeSHbdWWOmX5lg" keySequence="M1+W" command="_E1ryxGNTEeSXTpgmbw31ig"/>
+    <bindings xmi:id="_aeVkQGpwEeSOk8pfl6aCPg" keySequence="M1+W" command="_E1ryxGNTEeSXTpgmbw31ig"/>
   </bindingTables>
   <bindingTables xmi:id="_E1m6OWNTEeSXTpgmbw31ig" bindingContext="_E1m6qWNTEeSXTpgmbw31ig"/>
   <bindingTables xmi:id="_E1m6OmNTEeSXTpgmbw31ig" bindingContext="_E1m6qmNTEeSXTpgmbw31ig"/>

@@ -7,7 +7,6 @@
           <element id="module-output" name="opencvserver-server" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: uos.jhoffjann:opencvserver-common:1.0-SNAPSHOT" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:1.4" />
           <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2.1" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:3.1.3.RELEASE" />
