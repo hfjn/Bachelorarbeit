@@ -119,7 +119,7 @@ public class WelcomeController {
 
                 File dir = new File(root + File.separator + "object");
 
-                // start a threat for each image
+                // start a thread for each image
                 if (dir.isDirectory()) { // make sure it's a directory
                     for (final File f : dir.listFiles(IMAGE_FILTER)) {
                         log.info("starting Analyzing");

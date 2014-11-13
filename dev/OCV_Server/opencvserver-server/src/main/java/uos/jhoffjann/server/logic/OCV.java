@@ -15,7 +15,6 @@ import java.util.concurrent.Callable;
 public class OCV implements Callable<Result> {
 
     // Create Feature Detector
-    // Create Feature Detector
     private final double hessianThreshold = 2500d;
     private final int nOctaves = 4;
     private final int nOctaveLayers = 2;
@@ -23,13 +22,14 @@ public class OCV implements Callable<Result> {
     private final boolean upright = false;
     private opencv_nonfree.SURF surfFeatureDetector = new opencv_nonfree.SURF(hessianThreshold, nOctaves, nOctaveLayers,
             extended, upright);
+
     // Create Surf Extractor
     private opencv_features2d.DescriptorExtractor surfDescriptorExtractor = opencv_features2d.DescriptorExtractor.create("SURF");
 
     // Create Matcher
     private opencv_features2d.FlannBasedMatcher matcher = new opencv_features2d.FlannBasedMatcher();
 
-    private final double ratio = 0.65;
+    private final double RATIO = 0.65;
     // images
     private opencv_core.Mat images[] = {new opencv_core.Mat(), new opencv_core.Mat()};
 
@@ -68,6 +68,8 @@ public class OCV implements Callable<Result> {
 
             // Compute Descriptors
             surfDescriptorExtractor.compute(images[i], keypoints[i], descriptors[i]);
+
+
         }
 
     }
@@ -83,7 +85,7 @@ public class OCV implements Callable<Result> {
             double mRatio = matches.get(j, 0).distance() / matches.get(j, 1).distance();
             // System.out.println(matches.get(j, 0).distance() + " / " + matches.get(j, 1).distance() + " = " + mRatio);
 
-            if (mRatio <= ratio) {
+            if (mRatio <= RATIO) {
                 i++;
                 goodMatches.add(matches.get(j, 0));
             }
@@ -100,8 +102,6 @@ public class OCV implements Callable<Result> {
         images[1] = convertToGrayScale(images[1]);
 
         learnAboutImages(images);
-
-        // Matchsafe
         // Match it
         opencv_features2d.DMatchVectorVector matches = new opencv_features2d.DMatchVectorVector();
         matcher.knnMatch(descriptors[0], descriptors[1], matches, 2);

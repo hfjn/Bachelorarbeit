@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 /**
  * Created by jhoffjann on 13.11.14.
- * 
+ *
  */
 public class XMLHandler {
     // static
@@ -144,8 +144,7 @@ public class XMLHandler {
                                 fs[0] = 0;
                                 System.err.println("Unmatched number of float value at rows=" + r + " cols=" + c);
                             }
-                            readMat.put
-                            readMat.put(r, c, fs);
+                            readMat.data().put(fs, c, r);
                         }
                     }
                 }
