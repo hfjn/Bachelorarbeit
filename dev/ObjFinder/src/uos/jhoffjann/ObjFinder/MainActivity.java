@@ -34,6 +34,7 @@ import android.view.MotionEvent;
 import com.google.android.glass.media.CameraManager;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+import uos.jhoffjann.ObjFinder.View.CameraView;
 
 
 public class MainActivity extends Activity 
