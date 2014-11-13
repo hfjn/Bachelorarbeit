@@ -20,21 +20,25 @@
 
 package uos.jhoffjann.ObjFinder;
 
-import java.io.File;
-
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.FileObserver;
 import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-
-import com.google.android.glass.media.CameraManager;
+import android.view.View;
+import com.google.android.glass.content.Intents;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
+import com.google.android.glass.widget.CardBuilder;
+import uos.jhoffjann.ObjFinder.Logic.Upload;
 import uos.jhoffjann.ObjFinder.View.CameraView;
+
+import java.io.File;
 
 
 public class MainActivity extends Activity 
@@ -42,6 +46,10 @@ public class MainActivity extends Activity
 	private static final int TAKE_PICTURE_REQUEST = 1;
 	private GestureDetector mGestureDetector = null;
 	private CameraView cameraView = null;
+
+	private File image = null;
+
+	private final String URL = null;
 
 	/*
 	 * (non-Javadoc)
@@ -159,7 +167,7 @@ public class MainActivity extends Activity
 		// Handle photos
 		if (requestCode == TAKE_PICTURE_REQUEST && resultCode == RESULT_OK) 
 		{
-			String picturePath = data.getStringExtra(CameraManager.EXTRA_PICTURE_FILE_PATH);
+			String picturePath = data.getStringExtra(Intents.EXTRA_PICTURE_FILE_PATH);
 			processPictureWhenReady(picturePath);
 		}
 
@@ -176,7 +184,8 @@ public class MainActivity extends Activity
 
 		if (pictureFile.exists()) 
 		{
-			// The picture is ready; process it.
+			image = pictureFile;
+			new asyncUploading().execute();
 		} 
 		else 
 		{
@@ -221,6 +230,37 @@ public class MainActivity extends Activity
 				}
 			};
 			observer.startWatching();
+		}
+	}
+
+	public void updateMainUi(String result){
+		CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.CAPTION);
+		cardBuilder.setText(result);
+		View resultView = cardBuilder.getView();
+		resultView.bringToFront();
+	}
+
+
+	private class asyncUploading extends AsyncTask<Void, Void, Void>{
+		private final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
+		private String strResult = null;
+		protected void onPreExecute(){
+			this.dialog.setMessage("Loading...");
+			this.dialog.setCancelable(false);
+			this.dialog.show();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params){
+			strResult = Upload.upload(URL, image);
+			return null;
+		}
+
+		protected void onPostExecute(Void result){
+			if(dialog.isShowing()){
+				dialog.dismiss();
+			}
+			updateMainUi(strResult);
 		}
 	}
 
