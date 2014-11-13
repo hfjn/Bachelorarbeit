@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 /**
  * Created by jhoffjann on 13.11.14.
+ * 
  */
 public class XMLHandler {
     // static
@@ -36,8 +37,11 @@ public class XMLHandler {
         rootElement = null;
     }
 
-
-    // read or write
+    /**
+     *
+     * @param filePath
+     * @param flags
+     */
     public void open(String filePath, int flags) {
         try {
             if (flags == READ) {
@@ -51,8 +55,10 @@ public class XMLHandler {
 
     }
 
-
-    // read only
+    /**
+     *
+     * @param filePath
+     */
     public void open(String filePath) {
         try {
             file = new File(filePath);
@@ -69,12 +75,15 @@ public class XMLHandler {
 
     }
 
-    // write only
+    /**
+     *
+     * @param filePath
+     */
     public void create(String filePath) {
         try {
             file = new File(filePath);
             if (file == null) {
-                System.err.println("Can not wrtie file: " + filePath);
+                System.err.println("Can not write file: " + filePath);
             } else {
                 isWrite = true;
                 doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
@@ -87,6 +96,11 @@ public class XMLHandler {
         }
     }
 
+    /**
+     *
+     * @param tag
+     * @return
+     */
     public opencv_core.Mat readMat(String tag) {
         if (isWrite) {
             System.err.println("Try read from file with write flags");
@@ -130,6 +144,7 @@ public class XMLHandler {
                                 fs[0] = 0;
                                 System.err.println("Unmatched number of float value at rows=" + r + " cols=" + c);
                             }
+                            readMat.put
                             readMat.put(r, c, fs);
                         }
                     }
@@ -139,6 +154,11 @@ public class XMLHandler {
         return readMat;
     }
 
+    /**
+     *
+     * @param tag
+     * @param mat
+     */
 
     public void writeMat(String tag, opencv_core.Mat mat) {
         try {
@@ -177,6 +197,11 @@ public class XMLHandler {
         }
     }
 
+    /**
+     *
+     * @param mat
+     * @return
+     */
     private String dataStringBuilder(opencv_core.Mat mat) {
         StringBuilder sb = new StringBuilder();
         int rows = mat.rows();
@@ -195,7 +220,9 @@ public class XMLHandler {
         return sb.toString();
     }
 
-
+    /**
+     *
+     */
     public void release() {
         try {
             if (isWrite == false) {
