@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.FileObserver;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,7 +34,9 @@ public class MainActivity extends Activity {
 
     private File image = null;
 
-    private final String URL = "http://169.254.119.105:8080/opencv-server/analyze;
+    private String thumbnailPath;
+
+    private final String URL = "http://avecelle.fi/post";
 
     /*
      * (non-Javadoc)
@@ -67,7 +70,7 @@ public class MainActivity extends Activity {
         }
 
         // Set the view
-        this.setContentView(cameraView);
+        //this.setContentView(cameraView);
     }
 
     /*
@@ -138,7 +141,11 @@ public class MainActivity extends Activity {
         // Handle photos
         if (requestCode == TAKE_PICTURE_REQUEST && resultCode == RESULT_OK) {
             String picturePath = data.getStringExtra(Intents.EXTRA_PICTURE_FILE_PATH);
+            thumbnailPath = data.getStringExtra(Intents.EXTRA_THUMBNAIL_FILE_PATH);
+            Log.d("Picture Path: ", picturePath);
             processPictureWhenReady(picturePath);
+            cameraView.releaseCamera();
+            updateMainUi("Processing");
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -151,18 +158,15 @@ public class MainActivity extends Activity {
      */
     private void processPictureWhenReady(final String picturePath) {
         final File pictureFile = new File(picturePath);
-
+        Log.d("Start picture processing", "1");
         if (pictureFile.exists()) {
+            Log.d("Analyze.", "Start analyzing");
             image = pictureFile;
             new asyncUploading().execute();
         } else {
-            // The file does not exist yet. Before starting the file observer, you
-            // can update your UI to let the user know that the application is
-            // waiting for the picture (for example, by displaying the thumbnail
-            // image and a progress indicator).
-
+            Log.d("Start picture Processing", "2");
             final File parentDirectory = pictureFile.getParentFile();
-            FileObserver observer = new FileObserver(parentDirectory.getPath()) {
+            FileObserver observer = new FileObserver(parentDirectory.getPath(), FileObserver.CLOSE_WRITE | FileObserver.MOVED_TO) {
                 // Protect against additional pending events after CLOSE_WRITE is
                 // handled.
                 private boolean isFileWritten;
@@ -173,10 +177,11 @@ public class MainActivity extends Activity {
                         // For safety, make sure that the file that was created in
                         // the directory is actually the one that we're expecting.
                         File affectedFile = new File(parentDirectory, path);
-                        isFileWritten = (event == FileObserver.CLOSE_WRITE && affectedFile.equals(pictureFile));
+                        isFileWritten = (affectedFile.equals(pictureFile));
 
                         if (isFileWritten) {
                             stopWatching();
+                            Log.d("Info", "File" + pictureFile.getName() +  " is written");
 
                             // Now that the file is ready, recursively call
                             // processPictureWhenReady again (on the UI thread).
@@ -186,6 +191,9 @@ public class MainActivity extends Activity {
                                     processPictureWhenReady(picturePath);
                                 }
                             });
+                        }
+                        else{
+                            Log.d("Info", "File is not yet written");
                         }
                     }
                 }
@@ -198,7 +206,8 @@ public class MainActivity extends Activity {
         CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.CAPTION);
         cardBuilder.setText(result);
         View resultView = cardBuilder.getView();
-        resultView.bringToFront();
+        cameraView.releaseCamera();
+        this.setContentView(resultView);
     }
 
 

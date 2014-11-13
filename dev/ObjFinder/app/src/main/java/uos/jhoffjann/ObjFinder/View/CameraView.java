@@ -8,7 +8,6 @@ package uos.jhoffjann.ObjFinder.View;
 
 import android.content.Context;
 import android.hardware.Camera;
-import android.hardware.Camera.Parameters;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -34,7 +33,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
         camera = Camera.open();
 
         // Set the Hotfix for Google Glass
-        this.setCameraParameters(camera);
+        // this.setCameraParameters(camera);
 
         // Show the Camera display
         try {
@@ -71,13 +70,13 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
      *
      * @param camera Object
      */
-    public void setCameraParameters(Camera camera) {
-        if (camera != null) {
-            Parameters parameters = camera.getParameters();
-            parameters.setPreviewFpsRange(30000, 30000);
-            camera.setParameters(parameters);
-        }
-    }
+//    public void setCameraParameters(Camera camera) {
+//        if (camera != null) {
+//            Parameters parameters = camera.getParameters();
+//            parameters.setPreviewFpsRange(30000, 30000);
+//            camera.setParameters(parameters);
+//        }
+//    }
 
     /**
      * Release the camera from use

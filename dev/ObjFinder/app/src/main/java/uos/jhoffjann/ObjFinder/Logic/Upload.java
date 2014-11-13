@@ -19,7 +19,7 @@ public class Upload {
     public static String upload(String URL, File image) {
         try {
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("URL");
+            HttpPost httpPost = new HttpPost(URL);
 
             MultipartEntityBuilder entity = MultipartEntityBuilder.create();
             entity.addTextBody("name", new Date() + "");
