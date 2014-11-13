@@ -1,14 +1,9 @@
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
 import org.opencv.features2d.*;
 import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 
@@ -65,57 +60,6 @@ class Demo {
         return image;
     }
 
-    public static String matToJson(Mat mat){
-        JsonObject obj = new JsonObject();
-
-        if(mat.isContinuous()){
-            int cols = mat.cols();
-            int rows = mat.rows();
-            int elemSize = (int) mat.elemSize();
-
-            byte[] data = new byte[cols * rows * elemSize];
-
-            mat.get(0, 0, data);
-
-            obj.addProperty("rows", mat.rows());
-            obj.addProperty("cols", mat.cols());
-            obj.addProperty("type", mat.type());
-
-            // We cannot set binary data to a json object, so:
-            // Encoding data byte array to Base64.
-            Base64.Encoder encoder = Base64.getEncoder();
-            String dataString = new String(encoder.encode(data));
-
-            obj.addProperty("data", dataString);
-
-            Gson gson = new Gson();
-            String json = gson.toJson(obj);
-
-            return json;
-        } else {
-            System.out.println("Mat not continuous.");
-        }
-        return "{}";
-    }
-
-    public static Mat matFromJson(String json){
-        JsonParser parser = new JsonParser();
-        JsonObject JsonObject = parser.parse(json).getAsJsonObject();
-
-        int rows = JsonObject.get("rows").getAsInt();
-        int cols = JsonObject.get("cols").getAsInt();
-        int type = JsonObject.get("type").getAsInt();
-
-        String dataString = JsonObject.get("data").getAsString();
-        Base64.Decoder decoder = Base64.getDecoder();
-        byte[] data = decoder.decode(dataString.getBytes());
-
-        Mat mat = new Mat(rows, cols, type);
-        mat.put(0, 0, data);
-
-        return mat;
-    }
-
     /**
      * @param logo
      */
@@ -145,7 +89,7 @@ class Demo {
             for (int j = 0; j < matches.size(); j++) {
                 List<DMatch> matchList = matches.get(j).toList();
                 System.out.println(matchList.get(0).distance + " + " + matchList.get(1).distance);
-                if (matchList.get(0).distance < 0.59 * matchList.get(1).distance && ((int) matches.get(j).size().) >= 2) {
+                if (matchList.get(0).distance < 0.59 * matchList.get(1).distance) {
                     good_matches.add(matchList.get(0));
                 }
 
@@ -206,6 +150,7 @@ class Demo {
 
         Mat outImg = new Mat();
         // write images
+        System.out.println(logoDescriptors.type());
         Features2d.drawKeypoints(logo, logoKeypoints.get(0), outImg);
         Highgui.imwrite("/Volumes/HDD/Jannik/Desktop/pic1.jpg", outImg);
         Features2d.drawKeypoints(image, imageKeypoints.get(0), outImg);
