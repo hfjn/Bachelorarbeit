@@ -38,6 +38,7 @@
           <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:videoinput:0.200-0.9" />
           <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:artoolkitplus:2.3.0-0.9" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.3" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
         </element>
       </element>
       <element id="directory" name="META-INF">

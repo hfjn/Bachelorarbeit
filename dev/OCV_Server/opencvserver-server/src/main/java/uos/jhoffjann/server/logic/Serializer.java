@@ -13,42 +13,51 @@ import java.nio.channels.FileChannel;
 public class Serializer {
 
 
-    final String root = System.getProperty("user.dir" + File.separator + "objects");
+    final static String root = System.getProperty("user.dir");
+
+    
+
 
     public static boolean serializeMat(String name, opencv_core.Mat sMat) {
         ByteBuffer bMat = sMat.asByteBuffer();
         boolean append = false;
-        File file = new File(root + File.separator + name);
+
+        File file = new File(root + File.separator + "object");
+        if (!file.exists())
+            file.mkdirs();
+
+        file = new File(file.getAbsolutePath() + File.separator + name);
+
         try {
             FileChannel wChannel = new FileOutputStream(file, append).getChannel();
             wChannel.write(bMat);
             wChannel.close();
             return true;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }
 
-    public static opencv_core.Mat deserializeMat(String name) {
-        File file = new File(root + File.separator + name);
-
-        if (!file.exists())
+    public static opencv_core.Mat deserializeMat(int rows, int cols, int type, String name) {
+        File file = new File(root + File.separator + "object" + File.separator + name);
+        if (!file.exists()) {
+            System.out.println("File does not exist");
             return null;
-
-        BufferedReader br = null;
-        String sCurrentLine = null;
-        byte[] bMat = null;
+        }
+        byte[] bMat;
         try {
+            // Read Bytes from file.
             bMat = IOUtils.toByteArray(new FileInputStream(file));
-        } catch (Exception e) {
+            System.out.println(bMat.length);
+//            opencv_core.Mat nMat = new opencv_core.Mat(rows, cols, type);
+//            nMat.data().put(bMat);
+//            return nMat;
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
             return null;
         }
 
-
-        opencv_core.Mat nMat = new opencv_core.Mat();
-
-        nMat.data().put(bMat);
-
-        return nMat;
     }
 }

@@ -69,7 +69,6 @@ public class OCV implements Callable<Result> {
             // Compute Descriptors
             surfDescriptorExtractor.compute(images[i], keypoints[i], descriptors[i]);
 
-            
         }
 
     }
@@ -99,11 +98,26 @@ public class OCV implements Callable<Result> {
         images[0] = convertToGrayScale(images[0]);
         images[1] = convertToGrayScale(images[1]);
 
+//        Serializer.serializeMat("dhl", descriptors[0]);
+//        // test Serialization
+//        opencv_core.Mat dMat = Serializer.deserializeMat(descriptors[0].rows(), descriptors[0].cols(), descriptors[0].type(), "dhl");
+        String json = JsonHandler.matToJson(descriptors[0]);
+        System.out.println(json);
+        //opencv_core.Mat dMat = JsonHandler.matFromJson(json);
+//        if(dMat != null) {
+//            opencv_features2d.DMatchVectorVector dMatches = new opencv_features2d.DMatchVectorVector();
+//            System.out.println(dMat.size());
+//            System.out.println(descriptors[0].size());
+//            //matcher.knnMatch(dMat, descriptors[1], dMatches, 2);
+//        }
         learnAboutImages(images);
         // Match it
         opencv_features2d.DMatchVectorVector matches = new opencv_features2d.DMatchVectorVector();
         matcher.knnMatch(descriptors[0], descriptors[1], matches, 2);
         // filter for "good matches"
+
+//        if(matches.size() == dMatches.size())
+//            System.out.println("Serialisierung funktioniert! Fuck Yeah");
 
         ArrayList<opencv_features2d.DMatch> goodMatches = getGoodMatches(matches);
 
