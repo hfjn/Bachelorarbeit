@@ -1,10 +1,9 @@
 package uos.jhoffjann.server.logic;
 
+import org.apache.commons.io.IOUtils;
 import org.bytedeco.javacpp.opencv_core;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
@@ -16,25 +15,40 @@ public class Serializer {
 
     final String root = System.getProperty("user.dir" + File.separator + "objects");
 
-    public void serializeMat(String name, opencv_core.Mat sMat){
+    public static boolean serializeMat(String name, opencv_core.Mat sMat) {
         ByteBuffer bMat = sMat.asByteBuffer();
         boolean append = false;
-        File file = new File("root" + File.separator + name);
-        try{
+        File file = new File(root + File.separator + name);
+        try {
             FileChannel wChannel = new FileOutputStream(file, append).getChannel();
             wChannel.write(bMat);
             wChannel.close();
-        }catch(IOException e){
-
+            return true;
+        } catch (IOException e) {
+            return false;
         }
     }
 
-    public opencv_core.Mat deserializeMat(String name){
-        File file = new File("root" + File.separator + name);
+    public static opencv_core.Mat deserializeMat(String name) {
+        File file = new File(root + File.separator + name);
 
-        if(!file.exists())
+        if (!file.exists())
             return null;
 
-        opencv_core.CvMat Mat = new opencv_core.CvMat();
+        BufferedReader br = null;
+        String sCurrentLine = null;
+        byte[] bMat = null;
+        try {
+            bMat = IOUtils.toByteArray(new FileInputStream(file));
+        } catch (Exception e) {
+            return null;
+        }
+
+
+        opencv_core.Mat nMat = new opencv_core.Mat();
+
+        nMat.data().put(bMat);
+
+        return nMat;
     }
 }

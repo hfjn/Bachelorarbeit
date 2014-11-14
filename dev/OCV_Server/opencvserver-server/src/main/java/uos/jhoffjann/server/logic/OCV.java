@@ -69,7 +69,7 @@ public class OCV implements Callable<Result> {
             // Compute Descriptors
             surfDescriptorExtractor.compute(images[i], keypoints[i], descriptors[i]);
 
-
+            
         }
 
     }
@@ -80,13 +80,11 @@ public class OCV implements Callable<Result> {
      */
     private ArrayList<opencv_features2d.DMatch> getGoodMatches(opencv_features2d.DMatchVectorVector matches) {
         ArrayList<opencv_features2d.DMatch> goodMatches = new ArrayList<opencv_features2d.DMatch>();
-        int i = 0;
         for (int j = 0; j < matches.size(); j++) {
             double mRatio = matches.get(j, 0).distance() / matches.get(j, 1).distance();
             // System.out.println(matches.get(j, 0).distance() + " / " + matches.get(j, 1).distance() + " = " + mRatio);
 
             if (mRatio <= RATIO) {
-                i++;
                 goodMatches.add(matches.get(j, 0));
             }
         }
