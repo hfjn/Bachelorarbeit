@@ -1,5 +1,7 @@
 package uos.jhoffjann.server.controller;
 
+import org.apache.commons.io.FilenameUtils;
+import org.bytedeco.javacpp.opencv_core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import uos.jhoffjann.server.common.AnalyzeResponse;
 import uos.jhoffjann.server.common.Result;
-import uos.jhoffjann.server.logic.OCV;
+import uos.jhoffjann.server.logic.OCV_Descriptor;
+import uos.jhoffjann.server.logic.OCV_Matcher;
+import uos.jhoffjann.server.logic.Serializer;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -37,7 +41,7 @@ public class WelcomeController {
 
     // array of supported extensions (use a List if you prefer)
     static final String[] EXTENSIONS = new String[]{
-            "gif", "png", "bmp", "jpg" // and other formats you need
+            "xml" // and other formats you need
     };
     // filter to identify images based on their extensions
     static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
@@ -112,6 +116,8 @@ public class WelcomeController {
 
                 log.info("File was successfully uploaded!");
 
+                opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile);
+
                 // TODO Start analyze thread for every picture in logos give back best one
                 ExecutorService pool = Executors.newFixedThreadPool(10);
 
@@ -123,7 +129,8 @@ public class WelcomeController {
                 if (dir.isDirectory()) { // make sure it's a directory
                     for (final File f : dir.listFiles(IMAGE_FILTER)) {
                         log.info("starting Analyzing");
-                        Callable<Result> callable = new OCV(f, serverFile);
+                        String fileName = FilenameUtils.removeExtension(f.getName());
+                        Callable<Result> callable = new OCV_Matcher(fileName, Serializer.deserializeMat(fileName), descriptors);
                         Future<Result> future = pool.submit(callable);
                         set.add(future);
                     }
@@ -168,7 +175,7 @@ public class WelcomeController {
 
                 // Create a directory to store the image
                 String root = System.getProperty("user.dir");
-                File dir = new File(root + File.separator + "object");
+                File dir = new File(root + File.separator + "object_images");
 
                 if (!dir.exists())
                     dir.mkdirs();
@@ -178,7 +185,8 @@ public class WelcomeController {
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                stream.close();
+                opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile);
+                Serializer.serializeMat(name, descriptors);
 
                 log.info("File was successfully uploaded!");
 

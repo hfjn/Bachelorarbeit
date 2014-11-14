@@ -1,0 +1,43 @@
+package uos.jhoffjann.server.logic;
+
+import org.bytedeco.javacpp.*;
+
+import java.io.File;
+
+/**
+ * Created by jhoffjann on 14.11.14.
+ */
+public class OCV_Descriptor {
+
+    private static final double hessianThreshold = 2500d;
+    private static final int nOctaves = 4;
+    private static final int nOctaveLayers = 2;
+    private static final boolean extended = true;
+    private static boolean upright = false;
+
+
+    private static opencv_nonfree.SURF surfFeatureDetector = new opencv_nonfree.SURF(hessianThreshold, nOctaves, nOctaveLayers,
+            extended, upright);
+
+    // Create Surf Extractor
+    private static opencv_features2d.DescriptorExtractor surfDescriptorExtractor = opencv_features2d.DescriptorExtractor.create("SURF");
+
+    /**
+     * @param image
+     * @return
+     */
+    public static opencv_core.Mat getDescriptor(File image) {
+        // Storage for the relevant data
+        opencv_features2d.KeyPoint keypoints = new opencv_features2d.KeyPoint();
+        opencv_core.Mat descriptors = new opencv_core.Mat();
+
+        // Read the image
+        opencv_core.Mat mImage = opencv_highgui.imread(image.getAbsolutePath());
+        opencv_imgproc.cvtColor(mImage, mImage, opencv_imgproc.COLOR_BGR2GRAY);
+        // Process it
+        surfFeatureDetector.detect(mImage, keypoints);
+        surfDescriptorExtractor.compute(mImage, keypoints, descriptors);
+
+        return descriptors;
+    }
+}
