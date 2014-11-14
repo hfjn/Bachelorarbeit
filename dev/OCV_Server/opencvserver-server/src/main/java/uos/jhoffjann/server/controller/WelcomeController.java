@@ -58,26 +58,6 @@ public class WelcomeController {
     };
 
     /**
-     * This method is exposed as a REST service. The @RequestMapping parameter tells Spring that when a request comes in
-     * to the server at the sub-url of '/welcome' (e.g. http://localhost:8080/opencvserver-server/welcome)
-     * it should be directed to this method.
-     * <p/>
-     * In normal SpringMVC you would typically handle the request, attach some data to the 'Model' and redirect to a
-     * JSP for rendering. In our REST example however we want the result to be an XML response. Thanks to some Spring
-     * magic we can just return our bean, annotate it with @ResponseBody and Spring will magically turn this into XML
-     * for us.
-     * <p/>
-     * We really didn't need the whole WelcomeMessage object here and could just have easily returned a String. That
-     * wouldn't have made a very good example though, so the WelcomeMessage is here to show how Spring turns objects
-     * into XML and back again for easy REST calls. The 'date' parameter was added just to give it some spice.
-     *
-     * @param name the name of the person to say hello to. This is pulled from the input URL. In this case we use a
-     *             request parameter (i.e. ?name=someone), but you could also map it directly into the URL if you
-     *             prefer. See the very good SpringMVC documentation on this for more information.
-     * @return
-     */
-
-    /**
      * @return
      */
     @RequestMapping(value = "/analyze", method = RequestMethod.GET)
