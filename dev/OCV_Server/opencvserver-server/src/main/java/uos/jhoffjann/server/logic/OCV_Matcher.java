@@ -1,6 +1,5 @@
 package uos.jhoffjann.server.logic;
 
-
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_features2d;
 import uos.jhoffjann.server.common.Result;
@@ -10,12 +9,12 @@ import java.util.concurrent.Callable;
 
 
 /**
+ *
  * Created by jhoffjann on 04.11.14.
  */
 public class OCV_Matcher implements Callable<Result> {
 
-
-    // Create Matcher
+    // Create Nearest-Neighbour-Matcher
     private opencv_features2d.FlannBasedMatcher matcher = new opencv_features2d.FlannBasedMatcher();
 
     private final double RATIO = 0.65;
@@ -31,6 +30,7 @@ public class OCV_Matcher implements Callable<Result> {
     }
 
     /**
+     * Filters the Matches for good matches
      * @param matches
      * @return
      */
@@ -49,7 +49,8 @@ public class OCV_Matcher implements Callable<Result> {
     }
 
     /**
-     *
+     * Method that starts the Thread and returns the quantity of good Matches
+     * @return Future Result
      */
     @Override
     public Result call() {

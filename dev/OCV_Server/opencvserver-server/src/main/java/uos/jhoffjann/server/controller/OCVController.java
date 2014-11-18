@@ -29,15 +29,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * SpringMVC Controller that lives on the server side and handles incoming HTTP requests. It is basically a servlet but
- * using the power of SpringMVC we can avoid a lot of the raw servlet and request/response mapping uglies that
- * servlets require and instead just deal with simple, clean Java Objects. For more information on SpringMVC see:
- * http://static.springsource.org/spring/docs/current/spring-framework-reference/html/mvc.html
+ * SpringMVC Controller that lives on the server and handles incoming HTTP requests.
  */
 @Controller
-public class WelcomeController {
+public class OCVController {
 
-    private static final Logger log = LoggerFactory.getLogger(WelcomeController.class);
+    private static final Logger log = LoggerFactory.getLogger(OCVController.class);
 
     // array of supported extensions (use a List if you prefer)
     static final String[] EXTENSIONS = new String[]{
@@ -98,7 +95,6 @@ public class WelcomeController {
 
                 opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile);
 
-                // TODO Start analyze thread for every picture in logos give back best one
                 ExecutorService pool = Executors.newFixedThreadPool(10);
 
                 Set<Future<Result>> set = new HashSet<Future<Result>>();
@@ -142,6 +138,16 @@ public class WelcomeController {
             return new AnalyzeResponse("You probably did everything right. But there was an exception on the sever", new Date());
         }
 
+    }
+
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    AnalyzeResponse addRequest() {
+        return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", new Date());
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)

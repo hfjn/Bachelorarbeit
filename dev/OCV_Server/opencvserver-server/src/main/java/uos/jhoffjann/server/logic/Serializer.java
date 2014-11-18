@@ -20,11 +20,18 @@ public class Serializer {
      */
 
     public static boolean serializeMat(String name, opencv_core.Mat sMat) {
-        opencv_core.FileStorage storage = new opencv_core.FileStorage(root + File.separator + "object" + File.separator + name + ".xml", opencv_core.FileStorage.WRITE);
+
+        opencv_core.FileStorage storage = new opencv_core.FileStorage(root + File.separator + "object" + File.separator +
+                name + ".xml", opencv_core.FileStorage.WRITE);
+
         opencv_core.CvMat cvMat = sMat.asCvMat();
+
         System.out.println(cvMat.rows());
+
         storage.writeObj(name, cvMat);
+
         storage.release();
+
         return true;
     }
 
@@ -35,11 +42,18 @@ public class Serializer {
      */
 
     public static opencv_core.Mat deserializeMat(String name) {
-        opencv_core.FileStorage storage = new opencv_core.FileStorage(root + File.separator + "object" + File.separator + name + ".xml", opencv_core.FileStorage.READ);
+
+        opencv_core.FileStorage storage = new opencv_core.FileStorage(root + File.separator + "object" +
+                File.separator + name + ".xml", opencv_core.FileStorage.READ);
+
         opencv_core.CvMat cvMat = new opencv_core.CvMat(storage.get(name).readObj());
+
         System.out.println(cvMat.rows());
+
         opencv_core.Mat mat = new opencv_core.Mat(cvMat);
+
         System.out.println(mat.rows());
+
         return mat;
     }
 }
