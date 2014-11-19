@@ -144,8 +144,9 @@ public class OCVController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public
     @ResponseBody
-    AnalyzeResponse addRequest() {
-        return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", new Date());
+    String addRequest() {
+        return "add";
+        // return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", new Date());
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)

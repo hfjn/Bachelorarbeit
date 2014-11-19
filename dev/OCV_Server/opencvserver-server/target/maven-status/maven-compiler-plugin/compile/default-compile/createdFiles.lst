@@ -1,8 +1,8 @@
+uos/jhoffjann/server/controller/OCVController.class
 uos/jhoffjann/server/common/Result.class
 uos/jhoffjann/server/logic/OCV_Matcher.class
+uos/jhoffjann/server/logic/Upload.class
 uos/jhoffjann/server/logic/OCV_Descriptor.class
-uos/jhoffjann/server/controller/WelcomeController.class
 uos/jhoffjann/server/common/AnalyzeResponse.class
 uos/jhoffjann/server/logic/Serializer.class
-uos/jhoffjann/server/controller/WelcomeController$1.class
-uos/jhoffjann/server/common/WelcomeMessage.class
+uos/jhoffjann/server/controller/OCVController$1.class
