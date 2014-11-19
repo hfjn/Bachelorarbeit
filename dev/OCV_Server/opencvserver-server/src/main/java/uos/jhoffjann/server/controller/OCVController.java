@@ -1,5 +1,6 @@
 package uos.jhoffjann.server.controller;
 
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.io.FilenameUtils;
 import org.bytedeco.javacpp.opencv_core;
 import org.slf4j.Logger;
@@ -15,10 +16,9 @@ import uos.jhoffjann.server.common.Result;
 import uos.jhoffjann.server.logic.OCV_Descriptor;
 import uos.jhoffjann.server.logic.OCV_Matcher;
 import uos.jhoffjann.server.logic.Serializer;
+import uos.jhoffjann.server.logic.Upload;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.util.Date;
 import java.util.HashSet;
@@ -35,6 +35,10 @@ import java.util.concurrent.Future;
 public class OCVController {
 
     private static final Logger log = LoggerFactory.getLogger(OCVController.class);
+    private final String root = System.getProperty("user.dir");
+
+
+    //TODO add descriptors to a xml-File and read hem back from there
 
     // array of supported extensions (use a List if you prefer)
     static final String[] EXTENSIONS = new String[]{
@@ -76,22 +80,17 @@ public class OCVController {
         log.info("Request for Analyzing");
         try {
             if (!image.isEmpty()) {
-                byte[] bytes = image.getBytes();
+
 
                 // Create a temporary directory to store the image
-                String root = System.getProperty("user.dir");
-                File tmpDir = new File(root + File.separator + "tmpFiles");
+                // TODO check for images. Convert all images to .jpg
 
-                if (!tmpDir.exists())
-                    tmpDir.mkdirs();
+                File serverFile = Upload.uploadFile(root + File.separator + "tmpFiles", name, image);
 
-                // Create file on server
-                File serverFile = new File(tmpDir.getAbsolutePath() + File.separator + name + new Date() + ".jpg");
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
+                if (serverFile == null)
+                    throw new FileUploadException("File upload was not successful!");
 
-                log.info("File was successfully uploaded!");
+                log.info(new Date() + " - File was successfully uploaded!");
 
                 opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile);
 
@@ -104,7 +103,7 @@ public class OCVController {
                 // start a thread for each image
                 if (dir.isDirectory()) { // make sure it's a directory
                     for (final File f : dir.listFiles(IMAGE_FILTER)) {
-                        log.info("starting Analyzing");
+                        log.info(new Date() + " - Starting Analyzing");
                         String fileName = FilenameUtils.removeExtension(f.getName());
                         Callable<Result> callable = new OCV_Matcher(fileName, Serializer.deserializeMat(fileName), descriptors);
                         Future<Result> future = pool.submit(callable);
@@ -113,18 +112,17 @@ public class OCVController {
                 }
                 // check Results
                 Result best = null;
-                for (Future<Result> future : set){
-                    if(best == null)
-                       best = future.get();
-                    else if(best.getMatches() < future.get().getMatches()){
+                for (Future<Result> future : set) {
+                    if (best == null)
+                        best = future.get();
+                    else if (best.getMatches() < future.get().getMatches()) {
                         best = future.get();
                     }
                 }
-                if(best != null && best.getMatches() > 4){
-                    log.info(best.getMatches() + "");
+                if (best != null && best.getMatches() > 4) {
+                    log.info(new Date() + " - Quantity of good matches: " + best.getMatches() + "");
                     return new AnalyzeResponse("You're a looking at a " + best.getName(), new Date());
-                }
-                else{
+                } else {
                     return new AnalyzeResponse("Nothing found here", new Date());
                 }
 
@@ -157,24 +155,15 @@ public class OCVController {
         log.info("Request for object adding");
         try {
             if (!image.isEmpty()) {
-                byte[] bytes = image.getBytes();
+                File serverFile = Upload.uploadFile(root + File.separator + "object_images", name, image);
 
-                // Create a directory to store the image
-                String root = System.getProperty("user.dir");
-                File dir = new File(root + File.separator + "object_images");
+                if(serverFile == null)
+                    throw new FileUploadException("There was a problem with the FileUpload");
 
-                if (!dir.exists())
-                    dir.mkdirs();
-
-                // Create file on server
-                File serverFile = new File(dir.getAbsolutePath() + File.separator + name + ".jpg");
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
                 opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile);
                 Serializer.serializeMat(name, descriptors);
 
-                log.info("File was successfully uploaded!");
+                log.info(new Date() + " - File was successfully uploaded!");
 
                 return new AnalyzeResponse("Wohoo. I got a picture.", new Date());
 
