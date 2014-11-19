@@ -38,14 +38,10 @@ public class OCV_Matcher implements Callable<Result> {
         ArrayList<opencv_features2d.DMatch> goodMatches = new ArrayList<opencv_features2d.DMatch>();
         for (int j = 0; j < matches.size(); j++) {
             double mRatio = matches.get(j, 0).distance() / matches.get(j, 1).distance();
-            // System.out.println(matches.get(j, 0).distance() + " / " + matches.get(j, 1).distance() + " = " + mRatio);
-
-            if (mRatio <= RATIO) {
+            if (mRatio <= RATIO)
                 goodMatches.add(matches.get(j, 0));
-            }
         }
         return goodMatches;
-
     }
 
     /**
