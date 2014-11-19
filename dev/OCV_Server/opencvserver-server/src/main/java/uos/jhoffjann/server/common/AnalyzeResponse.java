@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Created by jhoffjann on 03.11.14.
+ * Wrapper for JSON-Response from Server to Client
  */
 public class AnalyzeResponse {
 
