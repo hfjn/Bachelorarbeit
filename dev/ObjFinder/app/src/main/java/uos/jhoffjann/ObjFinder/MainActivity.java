@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 
     private String thumbnailPath;
 
-    private final String URL = "http://avecelle.fi/post";
+    private final String URL = "http://128.199.32.173:8080/opencvserver-server/analyze";
 
     /*
      * (non-Javadoc)

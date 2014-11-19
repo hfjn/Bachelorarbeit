@@ -16,6 +16,7 @@ public class OCV_Descriptor {
     private static boolean upright = false;
 
 
+    // Create Surf Keypoint Detector
     private static opencv_nonfree.SURF surfFeatureDetector = new opencv_nonfree.SURF(hessianThreshold, nOctaves, nOctaveLayers,
             extended, upright);
 
@@ -23,19 +24,25 @@ public class OCV_Descriptor {
     private static opencv_features2d.DescriptorExtractor surfDescriptorExtractor = opencv_features2d.DescriptorExtractor.create("SURF");
 
     /**
-     * @param image
-     * @return
+     * Processes Surf Descriptors for the image
+     * @param image The image which is supposed to be analyzed
+     * @return A matrix with float descriptors that describe the Features of the image
      */
     public static opencv_core.Mat getDescriptor(File image) {
+
         // Storage for the relevant data
         opencv_features2d.KeyPoint keypoints = new opencv_features2d.KeyPoint();
+
         opencv_core.Mat descriptors = new opencv_core.Mat();
 
         // Read the image
         opencv_core.Mat mImage = opencv_highgui.imread(image.getAbsolutePath());
+
         opencv_imgproc.cvtColor(mImage, mImage, opencv_imgproc.COLOR_BGR2GRAY);
+
         // Process it
         surfFeatureDetector.detect(mImage, keypoints);
+
         surfDescriptorExtractor.compute(mImage, keypoints, descriptors);
 
         return descriptors;
