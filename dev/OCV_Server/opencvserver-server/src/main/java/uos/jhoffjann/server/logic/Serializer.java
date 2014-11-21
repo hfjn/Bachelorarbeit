@@ -26,8 +26,6 @@ public class Serializer {
 
         opencv_core.CvMat cvMat = sMat.asCvMat();
 
-        System.out.println(cvMat.rows());
-
         storage.writeObj(name, cvMat);
 
         storage.release();
@@ -48,11 +46,7 @@ public class Serializer {
 
         opencv_core.CvMat cvMat = new opencv_core.CvMat(storage.get(name).readObj());
 
-        System.out.println(cvMat.rows());
-
         opencv_core.Mat mat = new opencv_core.Mat(cvMat);
-
-        System.out.println(mat.rows());
 
         return mat;
     }

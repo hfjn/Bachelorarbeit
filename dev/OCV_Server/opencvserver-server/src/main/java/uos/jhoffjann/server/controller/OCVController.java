@@ -80,7 +80,7 @@ public class OCVController {
     public
     @ResponseBody
     AnalyzeResponse analyzeRequest(@RequestParam("name") String name, @RequestParam("file") MultipartFile image) {
-        log.info("Request for Analyzing");
+        log.info(new Date() + " - Request for Analyzing");
         try {
             if (!image.isEmpty()) {
 
@@ -123,12 +123,15 @@ public class OCVController {
                     }
                 }
                 if (best != null && best.getMatches().size() > 4) {
-                    log.info(new Date() + " - Quantity of good matches: " + best.getMatches() + "");
+                    log.info(new Date() + " - Quantity of good matches: " + best.getMatches().size() + "");
                     // write best Result to json to make it better to understand
                     Gson gson = new Gson();
                     String json = gson.toJson(best);
                     try {
-                        FileWriter writer = new FileWriter(root + File.separator + "results" + File.separator
+                        dir = new File(root + File.separator + "results");
+                        if(!dir.exists())
+                            dir.mkdirs();
+                        FileWriter writer = new FileWriter(dir.getAbsolutePath() + File.separator
                                 + new Date() + "-" + best.getName() + ".json");
                         writer.write(json);
                         writer.close();
