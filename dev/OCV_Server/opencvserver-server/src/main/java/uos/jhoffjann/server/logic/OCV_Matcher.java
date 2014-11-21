@@ -34,12 +34,12 @@ public class OCV_Matcher implements Callable<Result> {
      * @param matches
      * @return
      */
-    private ArrayList<opencv_features2d.DMatch> getGoodMatches(opencv_features2d.DMatchVectorVector matches) {
-        ArrayList<opencv_features2d.DMatch> goodMatches = new ArrayList<opencv_features2d.DMatch>();
+    private ArrayList<Double> getGoodMatches(opencv_features2d.DMatchVectorVector matches) {
+        ArrayList<Double> goodMatches = new ArrayList<Double>();
         for (int j = 0; j < matches.size(); j++) {
             double mRatio = matches.get(j, 0).distance() / matches.get(j, 1).distance();
             if (mRatio <= RATIO)
-                goodMatches.add(matches.get(j, 0));
+                goodMatches.add(mRatio);
         }
         return goodMatches;
     }
@@ -54,10 +54,9 @@ public class OCV_Matcher implements Callable<Result> {
         opencv_features2d.DMatchVectorVector matches = new opencv_features2d.DMatchVectorVector();
         matcher.knnMatch(descriptors[0], descriptors[1], matches, 2);
         // filter for "good matches"
-        opencv_features2d.DMatchVectorVector dMatches = new opencv_features2d.DMatchVectorVector();
 
-        ArrayList<opencv_features2d.DMatch> goodMatches = getGoodMatches(matches);
+        ArrayList<Double> goodMatches = getGoodMatches(matches);
 
-        return new Result(name, goodMatches.size());
+        return new Result(name, goodMatches);
     }
 }

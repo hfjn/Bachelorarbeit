@@ -1,5 +1,6 @@
 package uos.jhoffjann.server.controller;
 
+import com.google.gson.Gson;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.io.FilenameUtils;
 import org.bytedeco.javacpp.opencv_core;
@@ -19,7 +20,9 @@ import uos.jhoffjann.server.logic.Serializer;
 import uos.jhoffjann.server.logic.Upload;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -115,12 +118,24 @@ public class OCVController {
                 for (Future<Result> future : set) {
                     if (best == null)
                         best = future.get();
-                    else if (best.getMatches() < future.get().getMatches()) {
+                    else if (best.getMatches().size() < future.get().getMatches().size()) {
                         best = future.get();
                     }
                 }
-                if (best != null && best.getMatches() > 4) {
+                if (best != null && best.getMatches().size() > 4) {
                     log.info(new Date() + " - Quantity of good matches: " + best.getMatches() + "");
+                    // write best Result to json to make it better to understand
+                    Gson gson = new Gson();
+                    String json = gson.toJson(best);
+                    try {
+                        FileWriter writer = new FileWriter(root + File.separator + "results" + File.separator
+                                + new Date() + "-" + best.getName() + ".json");
+                        writer.write(json);
+                        writer.close();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     return new AnalyzeResponse("You're a looking at a " + best.getName(), new Date());
                 } else {
                     return new AnalyzeResponse("Nothing found here", new Date());
@@ -158,7 +173,7 @@ public class OCVController {
             if (!image.isEmpty()) {
                 File serverFile = Upload.uploadFile(root + File.separator + "object_images", name, image);
 
-                if(serverFile == null)
+                if (serverFile == null)
                     throw new FileUploadException("There was a problem with the FileUpload");
 
                 opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile);

@@ -15,7 +15,6 @@ public class Upload {
     // Uploads a MultipartFile to a specified path
 
     /**
-     *
      * @param path
      * @param name
      * @param file

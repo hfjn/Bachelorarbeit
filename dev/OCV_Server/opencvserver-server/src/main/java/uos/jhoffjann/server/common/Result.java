@@ -1,5 +1,7 @@
 package uos.jhoffjann.server.common;
 
+import java.util.ArrayList;
+
 /**
  * Created by jhoffjann on 05.11.14.
  */
@@ -7,14 +9,14 @@ public class Result {
 
     private String name;
 
-    private int matches;
+    private ArrayList<Double> matches;
 
-    public Result(String name, int matches){
+    public Result(String name, ArrayList<Double> matches){
         this.name = name;
         this.matches = matches;
     }
 
-    public int getMatches() {
+    public ArrayList<Double> getMatches() {
         return matches;
     }
 
