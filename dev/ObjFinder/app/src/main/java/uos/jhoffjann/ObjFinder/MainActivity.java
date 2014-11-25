@@ -38,6 +38,12 @@ public class MainActivity extends Activity {
 
     private final String URL = "http://128.199.32.173:8080/opencvserver-server/analyze";
 
+    private boolean result = false;
+
+    private boolean cameraActive = true;
+
+    MainActivity act = this;
+
     /*
      * (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -101,7 +107,14 @@ public class MainActivity extends Activity {
             @Override
             public boolean onGesture(Gesture gesture) {
                 // Make sure view is initiated
-                if (cameraView != null) {
+                if(result){
+                    cameraView = new CameraView(act);
+                    act.setContentView(cameraView);
+                    result = false;
+                    cameraActive = true;
+                }
+
+                else if (cameraView != null && cameraActive) {
                     // Tap with a single finger for photo
                     if (gesture == Gesture.TAP) {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -144,8 +157,10 @@ public class MainActivity extends Activity {
             thumbnailPath = data.getStringExtra(Intents.EXTRA_THUMBNAIL_FILE_PATH);
             Log.d("Picture Path: ", picturePath);
             processPictureWhenReady(picturePath);
-            cameraView.releaseCamera();
             updateMainUi("Processing");
+            cameraView.releaseCamera();
+            cameraActive = false;
+
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -163,6 +178,7 @@ public class MainActivity extends Activity {
             Log.d("Analyze.", "Start analyzing");
             image = pictureFile;
             new asyncUploading().execute();
+            this.result = true;
         } else {
             Log.d("Start picture Processing", "2");
             final File parentDirectory = pictureFile.getParentFile();
@@ -204,6 +220,7 @@ public class MainActivity extends Activity {
 
     public void updateMainUi(String result) {
         CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.CAPTION);
+        //cardBuilder.addImage(BitmapFactory.decodeFile(thumbnailPath));
         cardBuilder.setText(result);
         View resultView = cardBuilder.getView();
         cameraView.releaseCamera();

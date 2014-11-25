@@ -32,10 +32,10 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         camera = Camera.open();
 
-        // Set the Hotfix for Google Glass
-        // this.setCameraParameters(camera);
+        //Set the Hotfix for Google Glass
+        this.setCameraParameters(camera);
 
-        // Show the Camera display
+        //Show the Camera display
         try {
             camera.setPreviewDisplay(holder);
         } catch (Exception e) {
@@ -70,13 +70,13 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
      *
      * @param camera Object
      */
-//    public void setCameraParameters(Camera camera) {
-//        if (camera != null) {
-//            Parameters parameters = camera.getParameters();
-//            parameters.setPreviewFpsRange(30000, 30000);
-//            camera.setParameters(parameters);
-//        }
-//    }
+    public void setCameraParameters(Camera camera) {
+        if (camera != null) {
+            Camera.Parameters parameters = camera.getParameters();
+            parameters.setPreviewFpsRange(30000, 30000);
+            camera.setParameters(parameters);
+        }
+    }
 
     /**
      * Release the camera from use

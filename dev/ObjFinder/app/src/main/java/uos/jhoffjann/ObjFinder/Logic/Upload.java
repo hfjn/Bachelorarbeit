@@ -46,11 +46,10 @@ public class Upload {
             }
 
             return "Something went terrible wrong";
-        } catch (Exception e)
-
-        {
+        } catch (Exception e) {
             e.printStackTrace();
+            return "The upload server is not reachable. We're sorry";
+
         }
-        return null;
     }
 }
