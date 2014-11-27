@@ -41,8 +41,6 @@ public class OCVController {
     private final String root = System.getProperty("user.dir");
 
 
-    //TODO add descriptors to a xml-File and read hem back from there
-
     // array of supported extensions (use a List if you prefer)
     static final String[] EXTENSIONS = new String[]{
             "xml" // and other formats you need

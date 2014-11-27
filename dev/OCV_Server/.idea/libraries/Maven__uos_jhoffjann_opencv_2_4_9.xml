@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: uos.jhoffjann:opencv:2.4.9">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/uos/jhoffjann/opencv/2.4.9/opencv-2.4.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/uos/jhoffjann/OpenCV/2.4.9/opencv-2.4.9.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/uos/jhoffjann/opencv/2.4.9/opencv-2.4.9-javadoc.jar!/" />
