@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -131,7 +132,7 @@ public class OCVController {
                         if(!dir.exists())
                             dir.mkdirs();
                         FileWriter writer = new FileWriter(dir.getAbsolutePath() + File.separator
-                                + new Date() + "-" + best.getName() + ".json");
+                                + new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()) + "-" + best.getName() + ".json");
                         writer.write(json);
                         writer.close();
 

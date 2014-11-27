@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -28,7 +29,8 @@ public class Upload {
             if (!tmpDir.exists())
                 tmpDir.mkdirs();
             // Create file on server
-            File serverFile = new File(tmpDir.getAbsolutePath() + File.separator + name + new Date() + ".jpg");
+            File serverFile = new File(tmpDir.getAbsolutePath() + File.separator + name
+                    + new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()) + ".jpg");
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
             stream.write(bytes);
             stream.close();
