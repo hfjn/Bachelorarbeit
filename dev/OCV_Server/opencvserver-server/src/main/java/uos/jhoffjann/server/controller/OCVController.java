@@ -39,6 +39,7 @@ public class OCVController {
 
     private static final Logger log = LoggerFactory.getLogger(OCVController.class);
     private final String root = System.getProperty("user.dir");
+    private final boolean DEBUG = true;
 
 
     // array of supported extensions (use a List if you prefer)
@@ -93,7 +94,7 @@ public class OCVController {
 
                 log.info(new Date() + " - File was successfully uploaded!");
 
-                opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile);
+                opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile, DEBUG);
 
                 ExecutorService pool = Executors.newFixedThreadPool(10);
 
@@ -177,7 +178,7 @@ public class OCVController {
                 if (serverFile == null)
                     throw new FileUploadException("There was a problem with the FileUpload");
 
-                opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile);
+                opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile, DEBUG);
                 Serializer.serializeMat(name, descriptors);
 
                 log.info(new Date() + " - File was successfully uploaded!");

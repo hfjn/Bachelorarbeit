@@ -1,6 +1,7 @@
 package uos.jhoffjann.server.logic;
 
 import org.bytedeco.javacpp.*;
+import org.slf4j.Logger;
 
 import java.io.File;
 
@@ -14,6 +15,7 @@ public class OCV_Descriptor {
     private static final int nOctaveLayers = 2;
     private static final boolean extended = true;
     private static boolean upright = false;
+    private static Logger log = org.slf4j.LoggerFactory.getLogger(OCV_Descriptor.class);
 
 
     // Create Surf Keypoint Detector
@@ -28,7 +30,7 @@ public class OCV_Descriptor {
      * @param image The image which is supposed to be analyzed
      * @return A matrix with float descriptors that describe the Features of the image
      */
-    public static opencv_core.Mat getDescriptor(File image) {
+    public static opencv_core.Mat getDescriptor(File image, boolean debug) {
 
         // Storage for the relevant data
         opencv_features2d.KeyPoint keypoints = new opencv_features2d.KeyPoint();
@@ -44,6 +46,16 @@ public class OCV_Descriptor {
         surfFeatureDetector.detect(mImage, keypoints);
 
         surfDescriptorExtractor.compute(mImage, keypoints, descriptors);
+
+
+        if(debug){
+            opencv_core.Mat outImage = new opencv_core.Mat();
+            opencv_features2d.drawKeypoints(mImage, keypoints, outImage);
+            File dir = new File(System.getProperty("user.dir") + File.separator +"debug");
+            if(!dir.exists())
+                dir.mkdirs();
+            opencv_highgui.imwrite(dir + File.separator + image.getName() + ".jpg", outImage);
+        }
 
         return descriptors;
     }
