@@ -44,6 +44,8 @@ public class WikiHandler {
     public static String getPlainSummary(String url) {
         try {
             // Open Wikipage
+            logger.debug(url);
+            System.out.println(url);
             URL u = new URL(url);
             URLConnection uc = u.openConnection();
             uc.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1) Gecko/20090616 Firefox/3.5");

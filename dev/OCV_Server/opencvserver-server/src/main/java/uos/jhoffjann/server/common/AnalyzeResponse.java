@@ -10,13 +10,23 @@ public class AnalyzeResponse {
 
     private String message;
     private Date createdOn;
+    private String name;
 
     public AnalyzeResponse() {
     }
 
-    public AnalyzeResponse(String message, Date createdOn) {
+    public AnalyzeResponse(String name, String message, Date createdOn) {
         this.message = message;
         this.createdOn = createdOn;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getMessage() {

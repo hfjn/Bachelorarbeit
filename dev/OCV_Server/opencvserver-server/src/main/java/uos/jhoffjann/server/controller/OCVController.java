@@ -64,7 +64,7 @@ public class OCVController {
     public
     @ResponseBody
     AnalyzeResponse analyzeRequest() {
-        return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", new Date());
+        return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", "", new Date());
     }
 
     /**
@@ -102,6 +102,7 @@ public class OCVController {
                         Gson gson = new Gson();
                         BufferedReader br = new BufferedReader(new FileReader(f));
                         ObjectStorage storage = gson.fromJson(br, ObjectStorage.class);
+                        log.debug(storage.getDescription());
                         log.debug(new Date() + " - Now analyzing " + storage.getDescriptorPath());
                         Callable<Result> callable = new OCV_Matcher(storage.getName(),
                                 Serializer.deserializeMat(storage.getDescriptorPath(), storage.getName()), descriptors);
@@ -129,18 +130,18 @@ public class OCVController {
                     Runnable saver = new ResultSaver(dir, best);
                     pool.submit(saver);
                     // TODO get first n characters of Wikipedia-Article to give useable context-aware information
-                    return new AnalyzeResponse("You're a looking at a " + best.getName(), new Date());
+                    return new AnalyzeResponse(best.getName(), "", new Date());
                 } else {
-                    return new AnalyzeResponse("Nothing found here", new Date());
+                    return new AnalyzeResponse("Nothing found here", "", new Date());
                 }
 
             } else {
-                return new AnalyzeResponse("How about a picture?", new Date());
+                return new AnalyzeResponse("How about a picture?", "", new Date());
             }
         } catch (Exception e) {
             log.error(e.getMessage() + e.toString());
             e.printStackTrace();
-            return new AnalyzeResponse("You probably did everything right. But there was an exception on the sever", new Date());
+            return new AnalyzeResponse("You probably did everything right. But there was an exception on the sever", "", new Date());
         }
 
     }
@@ -152,7 +153,7 @@ public class OCVController {
     public
     @ResponseBody
     AnalyzeResponse addRequest() {
-        return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", new Date());
+        return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", "", new Date());
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -191,15 +192,15 @@ public class OCVController {
 
                 log.info(new Date() + " - File was successfully uploaded!");
 
-                return new AnalyzeResponse("Wohoo. I got a picture.", new Date());
+                return new AnalyzeResponse("Wohoo. I got a picture.", "", new Date());
 
             } else {
-                return new AnalyzeResponse("How about a picture?", new Date());
+                return new AnalyzeResponse("How about a picture?", "", new Date());
             }
         } catch (Exception e) {
             log.error(e.getMessage() + e.toString());
             e.printStackTrace();
-            return new AnalyzeResponse("You probably did everything right. But there was an exception on the sever", new Date());
+            return new AnalyzeResponse("You probably did everything right. But there was an exception on the sever", "", new Date());
         }
 
     }
