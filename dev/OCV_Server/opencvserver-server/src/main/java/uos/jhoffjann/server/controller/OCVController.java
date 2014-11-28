@@ -41,7 +41,7 @@ public class OCVController {
 
     // array of supported extensions (use a List if you prefer)
     static final String[] EXTENSIONS = new String[]{
-            "xml" // and other formats you need
+            "xml, json" // and other formats you need
     };
     // filter to identify images based on their extensions
     static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
@@ -102,6 +102,7 @@ public class OCVController {
                         Gson gson = new Gson();
                         BufferedReader br = new BufferedReader(new FileReader(f));
                         ObjectStorage storage = gson.fromJson(br, ObjectStorage.class);
+                        log.debug(new Date() + " - Now analyzing " + storage.getDescriptorPath());
                         Callable<Result> callable = new OCV_Matcher(storage.getName(),
                                 Serializer.deserializeMat(storage.getDescriptorPath(), storage.getName()), descriptors);
                         Future<Result> future = pool.submit(callable);
