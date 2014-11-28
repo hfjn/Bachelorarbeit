@@ -219,7 +219,7 @@ public class MainActivity extends Activity {
     }
 
     public void updateMainUi(String result) {
-        CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.CAPTION);
+        CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.TEXT);
         //cardBuilder.addImage(BitmapFactory.decodeFile(thumbnailPath));
         cardBuilder.setText(result);
         View resultView = cardBuilder.getView();

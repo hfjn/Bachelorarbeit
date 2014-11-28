@@ -23,7 +23,7 @@ public class WikiHandler {
 
     public static String getPlainSummary(String url) {
         try {
-            Document doc = Jsoup.parse(new URL(url).openStream(), "ISO-8859-1", url);
+            Document doc = Jsoup.parse(new URL(url).openStream(), "UTF-8", url);
             Elements paragraphs = doc.select("#mw-content-text p");
             Element firstParagraph = paragraphs.first();
             logger.debug(firstParagraph.text());
