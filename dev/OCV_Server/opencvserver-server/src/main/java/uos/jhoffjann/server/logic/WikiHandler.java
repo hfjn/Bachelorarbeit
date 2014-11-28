@@ -47,9 +47,10 @@ public class WikiHandler {
             logger.debug(url);
             URL u = new URL(url);
             URLConnection uc = u.openConnection();
-            uc.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1) Gecko/20090616 Firefox/3.5");
+            uc.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36");
             InputStream uio = uc.getInputStream();
             InputSource src = new InputSource(uio);
+            logger.debug(src.toString());
 
             //Construct Builder
             DocumentBuilder builder = dbf.newDocumentBuilder();

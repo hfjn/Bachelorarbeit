@@ -11,9 +11,12 @@ public class Result {
 
     private ArrayList<Double> matches;
 
-    public Result(String name, ArrayList<Double> matches){
+    private String path;
+
+    public Result(String name, ArrayList<Double> matches, String path){
         this.name = name;
         this.matches = matches;
+        this.path = path;
     }
 
     public ArrayList<Double> getMatches() {
@@ -24,6 +27,8 @@ public class Result {
         return name;
     }
 
-
+    public String getPath() {
+        return path;
+    }
 }
 

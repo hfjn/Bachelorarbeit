@@ -21,11 +21,14 @@ public class OCV_Matcher implements Callable<Result> {
 
     private String name;
 
+    private String path;
+
     opencv_core.Mat descriptors[] = {new opencv_core.Mat(), new opencv_core.Mat()};
 
-    public OCV_Matcher(String name, opencv_core.Mat desc1, opencv_core.Mat desc2) {
+    public OCV_Matcher(String path, String name, opencv_core.Mat desc1, opencv_core.Mat desc2) {
         descriptors[0] = desc1;
         descriptors[1] = desc2;
+        this.path = path;
         this.name = name;
     }
 
@@ -57,6 +60,6 @@ public class OCV_Matcher implements Callable<Result> {
 
         ArrayList<Double> goodMatches = getGoodMatches(matches);
 
-        return new Result(name, goodMatches);
+        return new Result(name, goodMatches, path);
     }
 }

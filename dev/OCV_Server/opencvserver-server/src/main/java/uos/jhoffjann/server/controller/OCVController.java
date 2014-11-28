@@ -104,7 +104,7 @@ public class OCVController {
                         ObjectStorage storage = gson.fromJson(br, ObjectStorage.class);
                         log.debug(storage.getDescription());
                         log.debug(new Date() + " - Now analyzing " + storage.getDescriptorPath());
-                        Callable<Result> callable = new OCV_Matcher(storage.getName(),
+                        Callable<Result> callable = new OCV_Matcher(f.getAbsolutePath(), storage.getName(),
                                 Serializer.deserializeMat(storage.getDescriptorPath(), storage.getName()), descriptors);
                         Future<Result> future = pool.submit(callable);
                         set.add(future);
@@ -121,7 +121,13 @@ public class OCVController {
                 }
                 // return best Result, which has at least 4 matches
                 if (best != null && best.getMatches().size() > 4) {
+
+                    // get Object with best Match Quantity for Response
                     log.info(new Date() + " - Quantity of good matches: " + best.getMatches().size() + "");
+                    Gson gson = new Gson();
+                    BufferedReader br = new BufferedReader(new FileReader(new File(best.getPath())));
+                    ObjectStorage storage = gson.fromJson(br, ObjectStorage.class);
+
                     // write best Result to json to make it better to understand
                     dir = new File(root + File.separator + "results");
                     if (!dir.exists())
@@ -129,8 +135,9 @@ public class OCVController {
                     // run save task in Thread to shorten response time
                     Runnable saver = new ResultSaver(dir, best);
                     pool.submit(saver);
+
                     // TODO get first n characters of Wikipedia-Article to give useable context-aware information
-                    return new AnalyzeResponse(best.getName(), "", new Date());
+                    return new AnalyzeResponse(storage.getName(), storage.getDescription(), new Date());
                 } else {
                     return new AnalyzeResponse("Nothing found here", "", new Date());
                 }
