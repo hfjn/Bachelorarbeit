@@ -97,7 +97,7 @@ public class OCVController {
                 // TODO get xml from json and start a thread
                 // start a thread for each image
                 if (dir.isDirectory()) { // make sure it's a directory
-                    for (final File f : dir.listFiles(IMAGE_FILTER)) {
+                    for (final File f : dir.listFiles()) {
                         log.info(new Date() + " - Starting Analyzing");
                         Gson gson = new Gson();
                         BufferedReader br = new BufferedReader(new FileReader(f));
