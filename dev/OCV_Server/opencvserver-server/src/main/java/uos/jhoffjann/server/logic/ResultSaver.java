@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Created by Jannik on 28.11.14.
  */
-public class ResultSaver extends Runnable{
+public class ResultSaver implements Runnable{
 
     private File dir;
     private Result best;

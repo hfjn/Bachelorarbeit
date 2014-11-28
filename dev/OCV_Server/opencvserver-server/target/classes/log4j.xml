@@ -11,19 +11,38 @@
     <!--
         We log only to the console in this simple setup but you could add additional appenders to log to files, etc.
     -->
-    <appender name="console" class="org.apache.log4j.ConsoleAppender">
-        <param name="Target" value="System.out"/>
+    <appender name="default.console" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.out" />
+        <param name="threshold" value="debug" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%-5p %c{1} - %m%n"/>
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p [%c{1}] - %m%n" />
         </layout>
     </appender>
 
+    <appender name="default.file" class="org.apache.log4j.FileAppender">
+        <param name="file" value="/log/first.log" />
+        <param name="append" value="false" />
+        <param name="threshold" value="debug" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p [%c{1}] - %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="another.file" class="org.apache.log4j.FileAppender">
+        <param name="file" value="/log/additional.log" />
+        <param name="append" value="false" />
+        <param name="threshold" value="debug" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p [%c{1}] - %m%n" />
+        </layout>
+    </appender>
     <!--
         By default we want to see all of our DEBUG log or higher, you might want to fine tune this for a production
         environment.
     -->
-    <logger name="uos.jhoffjann">
-        <level value="DEBUG"/>
+    <logger name="uos.jhoffjann" additivity="false">
+        <level value="debug" />
+        <appender-ref ref="another.file" />
     </logger>
 
     <!--
@@ -32,8 +51,10 @@
         (copy the snippet above and change the 'name') to fine tune what log you receive from each package/module.
     -->
     <root>
-        <priority value ="WARN" />
-        <appender-ref ref="console" />
+        <priority value="info" />
+        <appender-ref ref="default.console" />
+        <appender-ref ref="default.file" />
     </root>
 
 </log4j:configuration>
+

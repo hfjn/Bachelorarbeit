@@ -2,7 +2,6 @@ package uos.jhoffjann.server.controller;
 
 import com.google.gson.Gson;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.io.FilenameUtils;
 import org.bytedeco.javacpp.opencv_core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +16,7 @@ import uos.jhoffjann.server.common.ObjectStorage;
 import uos.jhoffjann.server.common.Result;
 import uos.jhoffjann.server.logic.*;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -39,6 +36,7 @@ public class OCVController {
     private final String root = System.getProperty("user.dir");
     private final boolean DEBUG = true;
     private ExecutorService pool = Executors.newFixedThreadPool(10);
+    private final String WikiURL = "http://de.wikipedia.org/wiki/";
 
 
     // array of supported extensions (use a List if you prefer)
@@ -101,8 +99,11 @@ public class OCVController {
                 if (dir.isDirectory()) { // make sure it's a directory
                     for (final File f : dir.listFiles(IMAGE_FILTER)) {
                         log.info(new Date() + " - Starting Analyzing");
-                        String fileName = FilenameUtils.removeExtension(f.getName());
-                        Callable<Result> callable = new OCV_Matcher(fileName, Serializer.deserializeMat(fileName), descriptors);
+                        Gson gson = new Gson();
+                        BufferedReader br = new BufferedReader(new FileReader(f));
+                        ObjectStorage storage = gson.fromJson(br, ObjectStorage.class);
+                        Callable<Result> callable = new OCV_Matcher(storage.getName(),
+                                Serializer.deserializeMat(storage.getDescriptorPath(), storage.getName()), descriptors);
                         Future<Result> future = pool.submit(callable);
                         set.add(future);
                     }
@@ -149,9 +150,8 @@ public class OCVController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public
     @ResponseBody
-    String addRequest() {
-        return "add";
-        // return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", new Date());
+    AnalyzeResponse addRequest() {
+        return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", new Date());
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -171,7 +171,8 @@ public class OCVController {
                 String xml = Serializer.serializeMat(name, descriptors);
 
                 // create JSON to store the whole thing
-                ObjectStorage objectStorage = new ObjectStorage(name, xml, new Date(), WikiHandler.getResponse(name));
+                ObjectStorage objectStorage = new ObjectStorage(name, xml, new Date(),
+                        WikiHandler.getPlainSummary(WikiURL + name));
 
                 Gson gson = new Gson();
                 String json = gson.toJson(objectStorage);

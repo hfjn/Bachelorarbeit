@@ -1,7 +1,10 @@
 /Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/OCV_Server/opencvserver-server/src/main/java/uos/jhoffjann/server/common/Result.java
 /Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/OCV_Server/opencvserver-server/src/main/java/uos/jhoffjann/server/common/AnalyzeResponse.java
+/Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/OCV_Server/opencvserver-server/src/main/java/uos/jhoffjann/server/common/ObjectStorage.java
 /Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/OCV_Server/opencvserver-server/src/main/java/uos/jhoffjann/server/logic/Serializer.java
 /Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/OCV_Server/opencvserver-server/src/main/java/uos/jhoffjann/server/logic/OCV_Matcher.java
+/Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/OCV_Server/opencvserver-server/src/main/java/uos/jhoffjann/server/logic/ResultSaver.java
 /Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/OCV_Server/opencvserver-server/src/main/java/uos/jhoffjann/server/logic/OCV_Descriptor.java
+/Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/OCV_Server/opencvserver-server/src/main/java/uos/jhoffjann/server/logic/WikiHandler.java
 /Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/OCV_Server/opencvserver-server/src/main/java/uos/jhoffjann/server/logic/Upload.java
 /Volumes/HDD/Jannik/Development/Bachelorarbeit/dev/OCV_Server/opencvserver-server/src/main/java/uos/jhoffjann/server/controller/OCVController.java

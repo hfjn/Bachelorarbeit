@@ -46,7 +46,7 @@ public class Serializer {
      * @return
      */
 
-    public static opencv_core.Mat deserializeMat(String filePath) {
+    public static opencv_core.Mat deserializeMat(String filePath, String name) {
 
         opencv_core.FileStorage storage = new opencv_core.FileStorage(filePath, opencv_core.FileStorage.READ);
 
