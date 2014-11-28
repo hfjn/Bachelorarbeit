@@ -28,6 +28,7 @@ public class WikiHandler {
             return firstParagraph.text();
         } catch (Exception e) {
             logger.error(e.getMessage());
+            return "Nothing found here!";
         }
     }
 }
