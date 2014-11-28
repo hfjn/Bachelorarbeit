@@ -3,6 +3,7 @@ package uos.jhoffjann.server.logic;
 import org.bytedeco.javacpp.opencv_core;
 
 import java.io.File;
+import java.util.UUID;
 
 /**
  * Created by jhoffjann on 13.11.14.
@@ -19,10 +20,16 @@ public class Serializer {
      * @return
      */
 
-    public static boolean serializeMat(String name, opencv_core.Mat sMat) {
+    public static String serializeMat(String name, opencv_core.Mat sMat) {
 
-        opencv_core.FileStorage storage = new opencv_core.FileStorage(root + File.separator + "object" + File.separator +
-                name + ".xml", opencv_core.FileStorage.WRITE);
+        File dir = new File(root + File.separator + "object_xml");
+
+        if(!dir.exists())
+            dir.mkdirs();
+
+        String filePath = dir.getAbsolutePath() + File.separator + UUID.randomUUID() + ".xml";
+
+        opencv_core.FileStorage storage = new opencv_core.FileStorage(filePath, opencv_core.FileStorage.WRITE);
 
         opencv_core.CvMat cvMat = sMat.asCvMat();
 
@@ -30,7 +37,7 @@ public class Serializer {
 
         storage.release();
 
-        return true;
+        return filePath;
     }
 
     /**
@@ -39,10 +46,9 @@ public class Serializer {
      * @return
      */
 
-    public static opencv_core.Mat deserializeMat(String name) {
+    public static opencv_core.Mat deserializeMat(String filePath) {
 
-        opencv_core.FileStorage storage = new opencv_core.FileStorage(root + File.separator + "object" +
-                File.separator + name + ".xml", opencv_core.FileStorage.READ);
+        opencv_core.FileStorage storage = new opencv_core.FileStorage(filePath, opencv_core.FileStorage.READ);
 
         opencv_core.CvMat cvMat = new opencv_core.CvMat(storage.get(name).readObj());
 

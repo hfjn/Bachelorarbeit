@@ -13,16 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import uos.jhoffjann.server.common.AnalyzeResponse;
+import uos.jhoffjann.server.common.ObjectStorage;
 import uos.jhoffjann.server.common.Result;
-import uos.jhoffjann.server.logic.OCV_Descriptor;
-import uos.jhoffjann.server.logic.OCV_Matcher;
-import uos.jhoffjann.server.logic.Serializer;
-import uos.jhoffjann.server.logic.Upload;
+import uos.jhoffjann.server.logic.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -41,6 +38,7 @@ public class OCVController {
     private static final Logger log = LoggerFactory.getLogger(OCVController.class);
     private final String root = System.getProperty("user.dir");
     private final boolean DEBUG = true;
+    private ExecutorService pool = Executors.newFixedThreadPool(10);
 
 
     // array of supported extensions (use a List if you prefer)
@@ -83,8 +81,6 @@ public class OCVController {
         log.info(new Date() + " - Request for Analyzing");
         try {
             if (!image.isEmpty()) {
-
-
                 // Create a temporary directory to store the image
                 // TODO check for images. Convert all images to .jpg
 
@@ -97,12 +93,10 @@ public class OCVController {
 
                 opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile, DEBUG);
 
-                ExecutorService pool = Executors.newFixedThreadPool(10);
-
                 Set<Future<Result>> set = new HashSet<Future<Result>>();
 
                 File dir = new File(root + File.separator + "object");
-
+                // TODO get xml from json and start a thread
                 // start a thread for each image
                 if (dir.isDirectory()) { // make sure it's a directory
                     for (final File f : dir.listFiles(IMAGE_FILTER)) {
@@ -122,28 +116,21 @@ public class OCVController {
                         best = future.get();
                     }
                 }
+                // return best Result, which has at least 4 matches
                 if (best != null && best.getMatches().size() > 4) {
                     log.info(new Date() + " - Quantity of good matches: " + best.getMatches().size() + "");
                     // write best Result to json to make it better to understand
-                    Gson gson = new Gson();
-                    String json = gson.toJson(best);
-                    try {
-                        dir = new File(root + File.separator + "results");
-                        if(!dir.exists())
-                            dir.mkdirs();
-                        FileWriter writer = new FileWriter(dir.getAbsolutePath() + File.separator
-                                + new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()) + "-" + best.getName() + ".json");
-                        writer.write(json);
-                        writer.close();
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    dir = new File(root + File.separator + "results");
+                    if (!dir.exists())
+                        dir.mkdirs();
+                    // run save task in Thread to shorten response time
+                    Runnable saver = new ResultSaver(dir, best);
+                    pool.submit(saver);
+                    // TODO get first n characters of Wikipedia-Article to give useable context-aware information
                     return new AnalyzeResponse("You're a looking at a " + best.getName(), new Date());
                 } else {
                     return new AnalyzeResponse("Nothing found here", new Date());
                 }
-
 
             } else {
                 return new AnalyzeResponse("How about a picture?", new Date());
@@ -174,13 +161,31 @@ public class OCVController {
         log.info("Request for object adding");
         try {
             if (!image.isEmpty()) {
+                // TODO check for images. Convert all images to .jpg
                 File serverFile = Upload.uploadFile(root + File.separator + "object_images", name, image);
 
                 if (serverFile == null)
                     throw new FileUploadException("There was a problem with the FileUpload");
 
                 opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile, DEBUG);
-                Serializer.serializeMat(name, descriptors);
+                String xml = Serializer.serializeMat(name, descriptors);
+
+                // create JSON to store the whole thing
+                ObjectStorage objectStorage = new ObjectStorage(name, xml, new Date(), WikiHandler.getResponse(name));
+
+                Gson gson = new Gson();
+                String json = gson.toJson(objectStorage);
+
+                File dir = new File(root + File.separator + "object");
+                if (!dir.exists())
+                    dir.mkdirs();
+
+                //write object to HDD
+                FileWriter writer = new FileWriter(dir.getAbsolutePath() + File.separator
+                        + new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()) + "-" +
+                        name.toLowerCase().replaceAll("\\s+","") + ".json");
+                writer.write(json);
+                writer.close();
 
                 log.info(new Date() + " - File was successfully uploaded!");
 
