@@ -176,6 +176,8 @@ public class OCVController {
                 if (serverFile == null)
                     throw new FileUploadException("There was a problem with the FileUpload");
 
+                System.out.println(WikiHandler.getPlainSummary(WikiURL + name));
+
                 opencv_core.Mat descriptors = OCV_Descriptor.getDescriptor(serverFile, DEBUG);
                 String xml = Serializer.serializeMat(name, descriptors);
 

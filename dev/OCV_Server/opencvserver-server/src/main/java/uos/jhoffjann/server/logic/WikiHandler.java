@@ -11,6 +11,8 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URL;
+
 /**
  * http://en.wikipedia.org/w/api.php?format=json&action=query&prop=revisions&titles=Hollywood&rvprop=content&rvsection=0&rvparse&continue
  */
@@ -21,13 +23,14 @@ public class WikiHandler {
 
     public static String getPlainSummary(String url) {
         try {
-            Document doc = Jsoup.connect(url).get();
-            Elements paragraphs = doc.select(".mw-content-text p");
+            Document doc = Jsoup.parse(new URL(url).openStream(), "ISO-8859-1", url);
+            Elements paragraphs = doc.select("#mw-content-text p");
             Element firstParagraph = paragraphs.first();
             logger.debug(firstParagraph.text());
             return firstParagraph.text();
         } catch (Exception e) {
             logger.error(e.getMessage());
+            e.printStackTrace();
             return "Nothing found here!";
         }
     }
