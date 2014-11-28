@@ -45,7 +45,6 @@ public class WikiHandler {
         try {
             // Open Wikipage
             logger.debug(url);
-            System.out.println(url);
             URL u = new URL(url);
             URLConnection uc = u.openConnection();
             uc.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.1) Gecko/20090616 Firefox/3.5");
@@ -55,12 +54,13 @@ public class WikiHandler {
             //Construct Builder
             DocumentBuilder builder = dbf.newDocumentBuilder();
             Document docXML = builder.parse(src);
+            logger.debug(docXML.toString());
 
             //Apply XPath
             XPath xpath = xpathf.newXPath();
             XPathExpression xpathe = xpath.compile(xexpr);
             String s = xpathe.evaluate(docXML);
-
+            logger.debug(s);
             //Return Attribute
             if (s.length() == 0) {
                 return null;
