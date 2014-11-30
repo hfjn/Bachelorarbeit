@@ -50,7 +50,7 @@ public class OCV_Descriptor {
 
         if(debug){
             opencv_core.Mat outImage = new opencv_core.Mat();
-            opencv_features2d.drawKeypoints(mImage, keypoints, outImage);
+            opencv_features2d.drawKeypoints(mImage, keypoints, outImage, new opencv_core.Scalar(255,0,0,0), opencv_features2d.DrawMatchesFlags.DRAW_RICH_KEYPOINTS);
             File dir = new File(System.getProperty("user.dir") + File.separator +"debug");
             if(!dir.exists())
                 dir.mkdirs();
