@@ -89,7 +89,7 @@ class Demo {
             for (int j = 0; j < matches.size(); j++) {
                 List<DMatch> matchList = matches.get(j).toList();
                 System.out.println(matchList.get(0).distance + " + " + matchList.get(1).distance);
-                if (matchList.get(0).distance < 0.59 * matchList.get(1).distance) {
+                if (matchList.get(0).distance < 0.7 * matchList.get(1).distance) {
                     good_matches.add(matchList.get(0));
                 }
 
@@ -120,8 +120,8 @@ class Demo {
 
         imageKeypoints.add(new MatOfKeyPoint());
         // images
-        Mat logo = Highgui.imread(getClass().getResource("/resources/dhl-logo.jpg").getPath());
-        Mat image = Highgui.imread(getClass().getResource("/resources/dhl-car.jpg").getPath());
+        Mat logo = Highgui.imread(getClass().getResource("/resources/dhl-logo_bg.jpg").getPath(), Imgproc.COLOR_BGR2GRAY);
+        Mat image = Highgui.imread(getClass().getResource("/resources/dhl-car_bg.jpg").getPath(), Imgproc.COLOR_BGR2GRAY);
 
 
         learnAboutLogo(logo);
