@@ -2,7 +2,7 @@ package uos.jhoffjann.server.logic;
 
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_features2d;
-import uos.jhoffjann.server.common.Result;
+import uos.jhoffjann.server.model.Result;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -25,6 +25,13 @@ public class OCV_Matcher implements Callable<Result> {
 
     opencv_core.Mat descriptors[] = {new opencv_core.Mat(), new opencv_core.Mat()};
 
+    /**
+     * The constructor
+     * @param path Path to the origin object
+     * @param name Name of the object
+     * @param desc1 Descriptors of first image
+     * @param desc2 Descriptors of second image
+     */
     public OCV_Matcher(String path, String name, opencv_core.Mat desc1, opencv_core.Mat desc2) {
         descriptors[0] = desc1;
         descriptors[1] = desc2;
@@ -34,8 +41,8 @@ public class OCV_Matcher implements Callable<Result> {
 
     /**
      * Filters the Matches for good matches
-     * @param matches
-     * @return
+     * @param matches the matches which are supposed to be filtered
+     * @return ArrayList with Best Matches
      */
     private ArrayList<Double> getGoodMatches(opencv_features2d.DMatchVectorVector matches) {
         ArrayList<Double> goodMatches = new ArrayList<Double>();

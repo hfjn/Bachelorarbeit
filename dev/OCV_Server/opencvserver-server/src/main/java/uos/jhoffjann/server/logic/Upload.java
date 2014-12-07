@@ -16,10 +16,11 @@ public class Upload {
     // Uploads a MultipartFile to a specified path
 
     /**
-     * @param path
-     * @param name
-     * @param file
-     * @return
+     * Handles the Upload of MultipartFiles
+     * @param path the path where Multipartfile is supposed to be saved
+     * @param name the name
+     * @param file the actual file
+     * @return a File Object
      */
 
     public static File uploadFile(String path, String name, MultipartFile file) {

@@ -1,7 +1,7 @@
 package uos.jhoffjann.server.logic;
 
 import com.google.gson.Gson;
-import uos.jhoffjann.server.common.Result;
+import uos.jhoffjann.server.model.Result;
 
 import java.io.File;
 import java.io.FileWriter;

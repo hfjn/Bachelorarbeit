@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import uos.jhoffjann.server.common.AnalyzeResponse;
-import uos.jhoffjann.server.common.ObjectStorage;
-import uos.jhoffjann.server.common.Result;
+import uos.jhoffjann.server.model.AnalyzeResponse;
+import uos.jhoffjann.server.model.ObjectStorage;
+import uos.jhoffjann.server.model.Result;
 import uos.jhoffjann.server.logic.*;
 
 import java.io.*;
@@ -44,7 +44,7 @@ public class OCVController {
             "xml, json" // and other formats you need
     };
     // filter to identify images based on their extensions
-    static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
+    static final FilenameFilter FILTER = new FilenameFilter() {
 
         @Override
         public boolean accept(final File dir, final String name) {
@@ -57,20 +57,12 @@ public class OCVController {
         }
     };
 
-    /**
-     * @return
-     */
-    @RequestMapping(value = "/analyze", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    AnalyzeResponse analyzeRequest() {
-        return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", "", new Date());
-    }
 
     /**
-     * @param name
-     * @param image
-     * @return
+     * Post Method, which utilizes OpenCV for the Matching Process
+     * @param name the name of the image
+     * @param image the image
+     * @return The Response as a JSON
      */
     @RequestMapping(value = "/analyze", method = RequestMethod.POST)
     public
@@ -154,15 +146,11 @@ public class OCVController {
     }
 
     /**
-     * @return
+     * The POST-Method which helps the user to add new object to the Server's Database
+     * @param name The name of the object
+     * @param image The object's image
+     * @return The Response as a JSON
      */
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    AnalyzeResponse addRequest() {
-        return new AnalyzeResponse("Hi! If you want a picture analyzed just post it to this url", "", new Date());
-    }
-
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public
     @ResponseBody

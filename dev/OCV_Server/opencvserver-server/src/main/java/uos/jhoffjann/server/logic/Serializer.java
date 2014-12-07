@@ -14,10 +14,10 @@ public class Serializer {
     final static String root = System.getProperty("user.dir");
 
     /**
-     *
-     * @param name
-     * @param sMat
-     * @return
+     * Serializes a Mat to an xml-File and saves it to the hard drive
+     * @param name the object's name
+     * @param sMat the Mat
+     * @return the absolute file path
      */
 
     public static String serializeMat(String name, opencv_core.Mat sMat) {
@@ -41,9 +41,9 @@ public class Serializer {
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * reads a Mat from an xml-file
+     * @param name the objects name
+     * @return the Mat
      */
 
     public static opencv_core.Mat deserializeMat(String filePath, String name) {

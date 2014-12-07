@@ -14,13 +14,16 @@ import org.slf4j.LoggerFactory;
 import java.net.URL;
 
 /**
- * http://en.wikipedia.org/w/api.php?format=json&action=query&prop=revisions&titles=Hollywood&rvprop=content&rvsection=0&rvparse&continue
+ * class which handles the parsing of a Wikipedia Web Page
  */
-
 public class WikiHandler {
     private static final Logger logger = LoggerFactory.getLogger(WikiHandler.class);
 
-
+    /**
+     * returns the first paragraph of the specified Wikipedia Article
+     * @param url the url of the Article
+     * @return the paragraph
+     */
     public static String getPlainSummary(String url) {
         try {
             Document doc = Jsoup.parse(new URL(url).openStream(), "UTF-8", url);
