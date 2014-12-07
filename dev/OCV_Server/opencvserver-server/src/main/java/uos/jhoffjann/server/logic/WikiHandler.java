@@ -21,6 +21,7 @@ public class WikiHandler {
 
     /**
      * returns the first paragraph of the specified Wikipedia Article
+     * as found here: http://stackoverflow.com/a/1579485
      * @param url the url of the Article
      * @return the paragraph
      */

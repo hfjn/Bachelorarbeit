@@ -64,7 +64,6 @@ public class OCV_Matcher implements Callable<Result> {
         opencv_features2d.DMatchVectorVector matches = new opencv_features2d.DMatchVectorVector();
         matcher.knnMatch(descriptors[0], descriptors[1], matches, 2);
         // filter for "good matches"
-
         ArrayList<Double> goodMatches = getGoodMatches(matches);
 
         return new Result(name, goodMatches, path);
