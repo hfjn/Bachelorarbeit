@@ -34,9 +34,7 @@ public class MainActivity extends Activity {
 
     private File image = null;
 
-    private String thumbnailPath;
-
-    private final String URL = "http://128.199.32.173:8080/opencvserver-server/analyze";
+    private String URL;
 
     private boolean result = false;
 
@@ -54,12 +52,13 @@ public class MainActivity extends Activity {
 
         // Initiate CameraView
         cameraView = new CameraView(this);
-
         // Turn on Gestures
         mGestureDetector = createGestureDetector(this);
 
         // Set the view
         this.setContentView(cameraView);
+
+        URL = this.getString(R.string.url);
     }
 
     /*
@@ -163,7 +162,6 @@ public class MainActivity extends Activity {
         // Handle photos
         if (requestCode == TAKE_PICTURE_REQUEST && resultCode == RESULT_OK) {
             String picturePath = data.getStringExtra(Intents.EXTRA_PICTURE_FILE_PATH);
-            thumbnailPath = data.getStringExtra(Intents.EXTRA_THUMBNAIL_FILE_PATH);
             Log.d("Picture Path: ", picturePath);
             processPictureWhenReady(picturePath);
             updateMainUi("Processing", null);

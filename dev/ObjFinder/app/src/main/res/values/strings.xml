@@ -3,5 +3,5 @@
 
     <string name="app_name">Object Finder</string>
     <string name="glass_voice_trigger">Show Object Finder</string>
-
+    <string name="url">http://128.199.32.173:8080/opencvserver-server/analyze</string>
 </resources>
