@@ -93,6 +93,15 @@ public class MainActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        // Release camera, when app is shut down
+        if (cameraView != null){
+            cameraView.releaseCamera();
+        }
+    }
+
     /**
      * Gesture detection for fingers on the Glass
      *
