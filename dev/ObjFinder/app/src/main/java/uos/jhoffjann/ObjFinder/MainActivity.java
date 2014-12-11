@@ -157,7 +157,7 @@ public class MainActivity extends Activity {
             thumbnailPath = data.getStringExtra(Intents.EXTRA_THUMBNAIL_FILE_PATH);
             Log.d("Picture Path: ", picturePath);
             processPictureWhenReady(picturePath);
-            updateMainUi("Processing");
+            updateMainUi("Processing", null);
             cameraView.releaseCamera();
             cameraActive = false;
 
@@ -218,10 +218,12 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void updateMainUi(String result) {
+    public void updateMainUi(String message, String footnote) {
         CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.TEXT);
-        //cardBuilder.addImage(BitmapFactory.decodeFile(thumbnailPath));
-        cardBuilder.setText(result);
+        if(message != null)
+            cardBuilder.setText(message);
+        if(footnote != null)
+            cardBuilder.setFootnote(footnote);
         View resultView = cardBuilder.getView();
         cameraView.releaseCamera();
         this.setContentView(resultView);
@@ -230,7 +232,7 @@ public class MainActivity extends Activity {
 
     private class asyncUploading extends AsyncTask<Void, Void, Void> {
         private final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-        private String strResult = null;
+        private String[] strResult = null;
 
         protected void onPreExecute() {
             this.dialog.setMessage("Loading...");
@@ -248,7 +250,7 @@ public class MainActivity extends Activity {
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
-            updateMainUi(strResult);
+            updateMainUi(strResult[0], strResult[1]);
         }
     }
 
