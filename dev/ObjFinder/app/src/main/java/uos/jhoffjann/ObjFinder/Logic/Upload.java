@@ -16,7 +16,8 @@ import java.util.Date;
  * Created by jhoffjann on 13.11.14.
  */
 public class Upload {
-    public static String upload(String URL, File image) {
+    public static String[] upload(String URL, File image) {
+        String[] token = new String[2];
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(URL);
@@ -31,7 +32,8 @@ public class Upload {
             int statusCode = response.getStatusLine().getStatusCode();
 
             if (statusCode != 200) {
-                return "Error: " + statusCode + " Something in the uploading process went wrong";
+                token[0] = "Error: " + statusCode + " Something in the uploading process went wrong";
+                return token;
             }
 
             if (response.getEntity() != null) {
@@ -40,16 +42,17 @@ public class Upload {
 
                 // parse to JSON
                 JSONObject result = new JSONObject(resStr);
-                String token = result.getString("message");
+                token[0] = result.getString("message");
+                token[1] = result.getString("name");
                 responseEntity.consumeContent();
                 return token;
             }
-
-            return "Something went terrible wrong";
+            token[0] = "Something went terrible wrong";
+            return token;
         } catch (Exception e) {
             e.printStackTrace();
-            return "The upload server is not reachable. We're sorry";
-
+            token[0] = "The upload server is not reachable. We're sorry";
+            return token;
         }
     }
 }

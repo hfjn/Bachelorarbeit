@@ -34,9 +34,7 @@ public class MainActivity extends Activity {
 
     private File image = null;
 
-    private String thumbnailPath;
-
-    private final String URL = "http://128.199.32.173:8080/opencvserver-server/analyze";
+    private String URL;
 
     private boolean result = false;
 
@@ -54,12 +52,13 @@ public class MainActivity extends Activity {
 
         // Initiate CameraView
         cameraView = new CameraView(this);
-
         // Turn on Gestures
         mGestureDetector = createGestureDetector(this);
 
         // Set the view
         this.setContentView(cameraView);
+
+        URL = this.getString(R.string.url);
     }
 
     /*
@@ -89,6 +88,15 @@ public class MainActivity extends Activity {
 
         // Do not hold the camera during onPause
         if (cameraView != null) {
+            cameraView.releaseCamera();
+        }
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        // Release camera, when app is shut down
+        if (cameraView != null){
             cameraView.releaseCamera();
         }
     }
@@ -154,10 +162,9 @@ public class MainActivity extends Activity {
         // Handle photos
         if (requestCode == TAKE_PICTURE_REQUEST && resultCode == RESULT_OK) {
             String picturePath = data.getStringExtra(Intents.EXTRA_PICTURE_FILE_PATH);
-            thumbnailPath = data.getStringExtra(Intents.EXTRA_THUMBNAIL_FILE_PATH);
             Log.d("Picture Path: ", picturePath);
             processPictureWhenReady(picturePath);
-            updateMainUi("Processing");
+            updateMainUi("Processing", null);
             cameraView.releaseCamera();
             cameraActive = false;
 
@@ -218,10 +225,12 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void updateMainUi(String result) {
+    public void updateMainUi(String message, String footnote) {
         CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.TEXT);
-        //cardBuilder.addImage(BitmapFactory.decodeFile(thumbnailPath));
-        cardBuilder.setText(result);
+        if(message != null)
+            cardBuilder.setText(message);
+        if(footnote != null)
+            cardBuilder.setFootnote(footnote);
         View resultView = cardBuilder.getView();
         cameraView.releaseCamera();
         this.setContentView(resultView);
@@ -230,7 +239,7 @@ public class MainActivity extends Activity {
 
     private class asyncUploading extends AsyncTask<Void, Void, Void> {
         private final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-        private String strResult = null;
+        private String[] strResult = null;
 
         protected void onPreExecute() {
             this.dialog.setMessage("Loading...");
@@ -248,7 +257,7 @@ public class MainActivity extends Activity {
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
-            updateMainUi(strResult);
+            updateMainUi(strResult[0], strResult[1]);
         }
     }
 
