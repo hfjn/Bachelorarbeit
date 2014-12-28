@@ -24,7 +24,8 @@
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.1" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.6.1" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.6.1" />
-          <element id="library" level="project" name="Maven: log4j:log4j:1.2.16" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+          <element id="library" level="project" name="Maven: log4j:apache-log4j-extras:1.2.17" />
           <element id="library" level="project" name="Maven: org.bytedeco:javacpp:0.9" />
           <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:opencv:2.4.9-0.9" />
           <element id="library" level="project" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:2.3-0.9" />

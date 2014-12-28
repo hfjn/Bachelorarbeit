@@ -12,18 +12,22 @@
         We log only to the console in this simple setup but you could add additional appenders to log to files, etc.
     -->
     <appender name="console" class="org.apache.log4j.ConsoleAppender">
-        <param name="Target" value="System.out"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%-5p %c{1} - %m%n"/>
+            <param name="ConversionPattern" value="[%d{dd/MM/yy hh:mm:ss:sss z}] %5p %c{2}: %m%n"/>
         </layout>
     </appender>
-    <appender name="FILE" class="org.apache.log4j.rolling.RollingFileAppender">
-        <param name="Target" value="System.out"/>
-        <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
-            <param name="fileNamePattern" value="/log/debug_%d{dd-MM-yy}.log"/>
+
+    <appender name="file" class="org.apache.log4j.rolling.RollingFileAppender">
+        <param name="threshold" value="debug" />
+        <rollingPolicy name="file"
+                       class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+            <param name="FileNamePattern" value="logs/MyLog-%d{yyyy-MM-dd-HH-mm}.log.gz" />
+            <!-- The below param will keep the live update file in a different location-->
+            <param name="ActiveFileName" value="current/MyLog.log" />
         </rollingPolicy>
+
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%-5p %c{1} - %m%n"/>
+            <param name="ConversionPattern" value="%5p %d{ISO8601} [%t][%x] %c - %m%n" />
         </layout>
     </appender>
 
@@ -33,6 +37,9 @@
     -->
     <logger name="uos.jhoffjann">
         <level value="DEBUG"/>
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+
     </logger>
 
     <!--
@@ -43,6 +50,7 @@
     <root>
         <priority value="WARN"/>
         <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
     </root>
 
 </log4j:configuration>
