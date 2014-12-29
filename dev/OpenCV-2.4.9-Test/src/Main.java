@@ -89,7 +89,7 @@ class Demo {
             for (int j = 0; j < matches.size(); j++) {
                 List<DMatch> matchList = matches.get(j).toList();
                 System.out.println(matchList.get(0).distance + " + " + matchList.get(1).distance);
-                if (matchList.get(0).distance < 0.7 * matchList.get(1).distance) {
+                if (matchList.get(0).distance < 100000 * matchList.get(1).distance) {
                     good_matches.add(matchList.get(0));
                 }
 
