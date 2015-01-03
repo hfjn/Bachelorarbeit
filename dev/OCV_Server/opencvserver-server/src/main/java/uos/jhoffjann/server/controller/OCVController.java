@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import uos.jhoffjann.server.model.AnalyzeResponse;
 import uos.jhoffjann.server.model.ObjectStorage;
 import uos.jhoffjann.server.model.Result;
@@ -200,6 +201,17 @@ public class OCVController {
             return new AnalyzeResponse("You probably did everything right. But there was an exception on the sever", "", new Date());
         }
 
+    }
+
+    /**
+     *
+     * @return
+     */
+    @RequestMapping(value = "/addObject", method = RequestMethod.GET)
+    public ModelAndView getAdd() {
+        ModelAndView model = new ModelAndView("addObject");
+        model.addObject("message", "Hello Spring MVC Framework!");
+        return model;
     }
 
 }

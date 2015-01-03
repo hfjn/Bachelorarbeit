@@ -1,0 +1,7 @@
+ WARN 2015-01-03 23:06:35,794 [btpool0-0][] org.springframework.web.servlet.PageNotFound - No mapping found for HTTP request with URI [/opencvserver-server/welcome] in DispatcherServlet with name 'rest-app'
+ WARN 2015-01-03 23:06:39,284 [btpool0-0][] org.springframework.web.servlet.PageNotFound - Request method 'GET' not supported
+ WARN 2015-01-03 23:06:54,564 [btpool0-0][] org.springframework.web.servlet.PageNotFound - Request method 'GET' not supported
+ WARN 2015-01-03 23:06:58,640 [btpool0-0][] org.springframework.web.servlet.PageNotFound - Request method 'GET' not supported
+ WARN 2015-01-03 23:06:58,663 [btpool0-0][] org.springframework.web.servlet.PageNotFound - Request method 'GET' not supported
+ WARN 2015-01-03 23:11:10,216 [btpool0-0][] org.springframework.web.servlet.PageNotFound - No mapping found for HTTP request with URI [/opencvserver-server/] in DispatcherServlet with name 'rest-app'
+ WARN 2015-01-03 23:11:13,361 [btpool0-0][] org.springframework.web.servlet.PageNotFound - Request method 'GET' not supported

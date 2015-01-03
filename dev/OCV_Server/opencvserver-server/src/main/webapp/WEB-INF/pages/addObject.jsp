@@ -11,6 +11,19 @@
     <title></title>
 </head>
 <body>
-  Na?
+<h1>
+    OCV Server
+</h1>
+
+<h2>
+    This page provides the opportunity to add a new object to the server.
+</h2>
+
+<h3>
+    Name:
+</h3>
+<h3>
+    File:
+</h3>
 </body>
 </html>
