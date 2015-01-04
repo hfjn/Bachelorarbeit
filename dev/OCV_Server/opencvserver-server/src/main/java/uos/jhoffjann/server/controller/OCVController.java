@@ -87,7 +87,6 @@ public class OCVController {
                 Set<Future<Result>> set = new HashSet<Future<Result>>();
 
                 File dir = new File(root + File.separator + "object");
-                // TODO get xml from json and start a thread
                 // start a thread for each image
                 if (dir.isDirectory()) { // make sure it's a directory
                     for (final File f : dir.listFiles()) {
@@ -204,14 +203,21 @@ public class OCVController {
     }
 
     /**
-     *
+     * Basic Website Handling
      * @return
      */
     @RequestMapping(value = "/addObject", method = RequestMethod.GET)
     public ModelAndView getAdd() {
         ModelAndView model = new ModelAndView("addObject");
-        model.addObject("message", "Hello Spring MVC Framework!");
         return model;
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView getMain() {
+        ModelAndView model = new ModelAndView("main");
+        return model;
+    }
+
+
 
 }

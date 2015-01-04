@@ -20,6 +20,7 @@
 </head>
 <body>
 <article class="markdown-body">
+
     <form action="add" enctype="multipart/form-data" method="post">
         <h1>
             OCV Server
@@ -48,7 +49,7 @@
             <input type="submit" name="Submit">
         </p>
     </form>
-
+    <a href="/opencvserver-server/"><-- back</a>
 </article>
 </body>
 </html>
