@@ -8,22 +8,47 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <style>
+        .markdown-body {
+            min-width: 200px;
+            max-width: 790px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+    </style>
     <title></title>
 </head>
 <body>
-<h1>
-    OCV Server
-</h1>
+<article class="markdown-body">
+    <form action="add" enctype="multipart/form-data" method="post">
+        <h1>
+            OCV Server
+        </h1>
 
-<h2>
-    This page provides the opportunity to add a new object to the server.
-</h2>
+        <h4>
+            This page provides the opportunity to add a new object to the server.
+        </h4>
 
-<h3>
-    Name:
-</h3>
-<h3>
-    File:
-</h3>
+        <h4>
+            Name:
+        </h4>
+
+        <p>
+            <input name="name" type="text" accept="text/xml">
+        </p>
+        <h4>
+            File:
+        </h4>
+
+        <p>
+            <input name="file" type="file">
+        </p>
+
+        <p>
+            <input type="submit" name="Submit">
+        </p>
+    </form>
+
+</article>
 </body>
 </html>
