@@ -212,12 +212,6 @@ public class OCVController {
         return model;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView getMain() {
-        ModelAndView model = new ModelAndView("main");
-        return model;
-    }
-
 
 
 }

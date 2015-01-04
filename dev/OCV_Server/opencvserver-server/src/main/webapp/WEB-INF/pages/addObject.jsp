@@ -49,7 +49,6 @@
             <input type="submit" name="Submit">
         </p>
     </form>
-    <a href="/opencvserver-server/"><-- back</a>
 </article>
 </body>
 </html>
