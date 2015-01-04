@@ -128,7 +128,6 @@ public class OCVController {
                     Runnable saver = new ResultSaver(dir, best);
                     pool.submit(saver);
 
-                    // TODO get first n characters of Wikipedia-Article to give useable context-aware information
                     return new AnalyzeResponse(storage.getName(), storage.getDescription(), new Date());
                 } else {
                     return new AnalyzeResponse("Nothing found here", "", new Date());

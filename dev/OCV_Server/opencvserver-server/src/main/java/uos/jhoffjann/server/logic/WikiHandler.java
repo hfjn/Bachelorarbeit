@@ -35,7 +35,7 @@ public class WikiHandler {
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
-            return "Nothing found here!";
+            return "No Wikipedia Article found!";
         }
     }
 }
