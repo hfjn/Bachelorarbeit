@@ -74,8 +74,6 @@ public class MainActivity extends Activity {
             cameraView.releaseCamera();
         }
 
-        // Set the view
-        //this.setContentView(cameraView);
     }
 
     /*
