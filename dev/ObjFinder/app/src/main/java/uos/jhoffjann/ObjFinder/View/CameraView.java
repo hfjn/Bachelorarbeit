@@ -11,11 +11,17 @@ import android.hardware.Camera;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+/**
+ * Manages the Camera Surface
+ */
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder surfaceHolder = null;
     private Camera camera = null;
 
-    @SuppressWarnings("deprecation")
+    /**
+     * Camera View Holder
+     * @param context the App Context
+     */
     public CameraView(Context context) {
         super(context);
 
@@ -24,9 +30,15 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
+
     /*
      * (non-Javadoc)
      * @see android.view.SurfaceHolder.Callback#surfaceCreated(android.view.SurfaceHolder)
+     */
+
+    /**
+     * initializes the Surface
+     * @param holder holds the surface
      */
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
@@ -47,6 +59,14 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
      * (non-Javadoc)
      * @see android.view.SurfaceHolder.Callback#surfaceChanged(android.view.SurfaceHolder, int, int, int)
      */
+
+    /**
+     * reinitializes the surface
+     * @param holder new Holder
+     * @param format new Format
+     * @param width new Width
+     * @param height new Height
+     */
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         // Start the preview for surfaceChanged
@@ -58,6 +78,11 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
     /*
      * (non-Javadoc)
      * @see android.view.SurfaceHolder.Callback#surfaceDestroyed(android.view.SurfaceHolder)
+     */
+
+    /**
+     * Releases the Surface
+     * @param holder the holder
      */
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {

@@ -26,6 +26,9 @@ import uos.jhoffjann.ObjFinder.View.CameraView;
 
 import java.io.File;
 
+/**
+ * The Main Activity
+ */
 
 public class MainActivity extends Activity {
     private static final int TAKE_PICTURE_REQUEST = 1;
@@ -46,6 +49,11 @@ public class MainActivity extends Activity {
      * (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
+
+    /**
+     * initializes everything
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +73,10 @@ public class MainActivity extends Activity {
      * (non-Javadoc)
      * @see android.app.Activity#onResume()
      */
+
+    /**
+     * Standard Method
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -80,6 +92,10 @@ public class MainActivity extends Activity {
      * (non-Javadoc)
      * @see android.app.Activity#onPause()
      */
+
+    /**
+     * Standard Method
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -90,6 +106,9 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Standard Method
+     */
     @Override
     protected void onDestroy(){
         super.onDestroy();
@@ -102,8 +121,8 @@ public class MainActivity extends Activity {
     /**
      * Gesture detection for fingers on the Glass
      *
-     * @param context
-     * @return
+     * @param context App Context
+     * @return return gestures
      */
     private GestureDetector createGestureDetector(Context context) {
         GestureDetector gestureDetector = new GestureDetector(context);
@@ -142,6 +161,12 @@ public class MainActivity extends Activity {
     /*
      * Send generic motion events to the gesture detector
      */
+
+    /**
+     * initializes app for touch events
+     * @param event the motion Event
+     * @return
+     */
     @Override
     public boolean onGenericMotionEvent(MotionEvent event) {
         if (mGestureDetector != null) {
@@ -155,6 +180,13 @@ public class MainActivity extends Activity {
      * (non-Javadoc)
      * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
      */
+
+    /**
+     * Start processing when a picture was taken
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Handle photos
@@ -167,7 +199,6 @@ public class MainActivity extends Activity {
             cameraActive = false;
 
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -223,6 +254,11 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Updates Main-Ui when image is processed
+     * @param message The message in the Json String
+     * @param footnote The name of the object
+     */
     public void updateMainUi(String message, String footnote) {
         CardBuilder cardBuilder = new CardBuilder(this, CardBuilder.Layout.TEXT);
         if(message != null)
@@ -235,22 +271,37 @@ public class MainActivity extends Activity {
     }
 
 
+    /**
+     * Initializes the app for async Uploading
+     */
     private class asyncUploading extends AsyncTask<Void, Void, Void> {
         private final ProgressDialog dialog = new ProgressDialog(MainActivity.this);
         private String[] strResult = null;
 
+        /**
+         * pre Uploading
+         */
         protected void onPreExecute() {
             this.dialog.setMessage("Loading...");
             this.dialog.setCancelable(false);
             this.dialog.show();
         }
 
+        /**
+         * the initial Background Upload
+         * @param params the parameters
+         * @return null
+         */
         @Override
         protected Void doInBackground(Void... params) {
             strResult = Upload.upload(URL, image);
             return null;
         }
 
+        /**
+         * after Uploading
+         * @param result the result of the Async Task
+         */
         protected void onPostExecute(Void result) {
             if (dialog.isShowing()) {
                 dialog.dismiss();

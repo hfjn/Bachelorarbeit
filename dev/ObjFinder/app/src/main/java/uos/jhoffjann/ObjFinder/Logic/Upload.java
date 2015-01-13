@@ -16,6 +16,13 @@ import java.util.Date;
  * Created by jhoffjann on 13.11.14.
  */
 public class Upload {
+
+    /**
+     * Manages the Upload and waiting for Response
+     * @param URL the URL to upload to
+     * @param image the image
+     * @return the response
+     */
     public static String[] upload(String URL, File image) {
         String[] token = new String[2];
         try {
