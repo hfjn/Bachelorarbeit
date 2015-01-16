@@ -9,7 +9,7 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
     <!--
-        We log only to the console in this simple setup but you could add additional appenders to log to files, etc.
+        We log only to file and console
     -->
     <appender name="console" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.PatternLayout">
@@ -32,8 +32,7 @@
     </appender>
 
     <!--
-        By default we want to see all of our DEBUG log or higher, you might want to fine tune this for a production
-        environment.
+        By default we want to see all of our DEBUG log or higher
     -->
     <logger name="uos.jhoffjann">
         <level value="DEBUG"/>
@@ -42,11 +41,6 @@
 
     </logger>
 
-    <!--
-        Generally we don't care too much about logging outside of our own code (unless something goes wrong) so we
-        default to only getting WARN or higher messages from everyone else. You can add any number of custom loggers
-        (copy the snippet above and change the 'name') to fine tune what log you receive from each package/module.
-    -->
     <root>
         <priority value="WARN"/>
         <appender-ref ref="console"/>

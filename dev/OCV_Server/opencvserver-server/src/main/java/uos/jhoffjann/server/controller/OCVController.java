@@ -73,7 +73,6 @@ public class OCVController {
         try {
             if (!image.isEmpty()) {
                 // Create a temporary directory to store the image
-                // TODO check for images. Convert all images to .jpg
 
                 File serverFile = Upload.uploadFile(root + File.separator + "tmpFiles", name, image);
 
@@ -157,7 +156,6 @@ public class OCVController {
         log.info("Request for object adding");
         try {
             if (!image.isEmpty()) {
-                // TODO check for images. Convert all images to .jpg
                 File serverFile = Upload.uploadFile(root + File.separator + "object_images", name, image);
 
                 if (serverFile == null)

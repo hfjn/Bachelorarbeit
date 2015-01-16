@@ -17,11 +17,21 @@ public class ResultSaver implements Runnable{
     private File dir;
     private Result best;
 
+    /**
+     * A constructor
+     * @param dir the file's path
+     * @param best the result
+     */
+
     public ResultSaver(File dir, Result best){
         this.dir = dir;
         this.best = best;
 
     }
+
+    /**
+     * Saves the stuff
+     */
     public void run(){
         // write best Result to json to make it better to understand
         Gson gson = new Gson();

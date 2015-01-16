@@ -13,20 +13,38 @@ public class Result {
 
     private String path;
 
+    /**
+     * the constructor
+     * @param name thename
+     * @param matches the matches
+     * @param path the path of the result
+     */
     public Result(String name, ArrayList<Double> matches, String path){
         this.name = name;
         this.matches = matches;
         this.path = path;
     }
 
+    /**
+     * returns the matches
+     * @return the matches
+     */
     public ArrayList<Double> getMatches() {
         return matches;
     }
 
+    /**
+     * gets the name
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * returns the path
+     * @return path
+     */
     public String getPath() {
         return path;
     }

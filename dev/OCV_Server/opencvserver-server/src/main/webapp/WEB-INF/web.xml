@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-    Good old fashion web.xml is used to configure the webapp. When the web server (e.g. Tomcat or Jetty) starts up, it
-    will read this file to determine which URLs to map to where, etc. In our case most of this work is going to be taken
-    care of by SpringMVC so we simply have to tell the web server to delegate everything through to it.
--->
-
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
