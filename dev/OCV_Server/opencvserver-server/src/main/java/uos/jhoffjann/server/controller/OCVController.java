@@ -160,8 +160,8 @@ public class OCVController {
                 if (serverFile == null)
                     throw new FileUploadException("There was a problem with the FileUpload");
 
-                
-                name = name.replaceAll("\\s+","-");
+
+                name = name.replaceAll("\\s+","_");
 
                 System.out.println(WikiHandler.getPlainSummary(WikiURL + name));
 
