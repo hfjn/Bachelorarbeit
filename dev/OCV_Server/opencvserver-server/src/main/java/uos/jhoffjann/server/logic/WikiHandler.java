@@ -34,8 +34,7 @@ public class WikiHandler {
             return firstParagraph.text();
         } catch (Exception e) {
             logger.error(e.getMessage());
-            e.printStackTrace();
-            return "No Wikipedia Article found!";
+            return "No Wikipedia Article found! You still can add a Description in the json file.";
         }
     }
 }

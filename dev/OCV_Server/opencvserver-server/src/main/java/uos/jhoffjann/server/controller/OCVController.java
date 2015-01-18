@@ -88,12 +88,11 @@ public class OCVController {
                 File dir = new File(root + File.separator + "object");
                 // start a thread for each image
                 if (dir.isDirectory()) { // make sure it's a directory
+                    log.info(new Date() + " - Starting Analyzing");
                     for (final File f : dir.listFiles()) {
-                        log.info(new Date() + " - Starting Analyzing");
                         Gson gson = new Gson();
                         BufferedReader br = new BufferedReader(new FileReader(f));
                         ObjectStorage storage = gson.fromJson(br, ObjectStorage.class);
-                        log.debug(storage.getDescription());
                         log.debug(new Date() + " - Now analyzing " + storage.getDescriptorPath());
                         Callable<Result> callable = new OCV_Matcher(f.getAbsolutePath(), storage.getName(),
                                 Serializer.deserializeMat(storage.getDescriptorPath(), storage.getName()), descriptors);
@@ -160,6 +159,9 @@ public class OCVController {
 
                 if (serverFile == null)
                     throw new FileUploadException("There was a problem with the FileUpload");
+
+                
+                name = name.replaceAll("\\s+","-");
 
                 System.out.println(WikiHandler.getPlainSummary(WikiURL + name));
 
